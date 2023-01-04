@@ -32,7 +32,8 @@
       "drupal/core-composer-scaffold": true,
       "drupal/core-project-message": true,
       "phpstan/extension-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "zaporylie/composer-drupal-optimizations": true
     },
     "sort-packages": true
   },
@@ -92,5 +93,15 @@
         "      composer remove drupal/core-project-message"
       ]
     }
+  },
+  "require-dev": {
+    "drupal/coder": "^8.3",
+    "mglaman/drupal-check": "^1.4",
+    "phpstan/phpstan": "^1.9",
+    "phpstan/phpstan-deprecation-rules": "^1.1",
+    "phpunit/phpunit": "^9.5",
+    "squizlabs/php_codesniffer": "^3.7",
+    "symfony/phpunit-bridge": "^6.2",
+    "zaporylie/composer-drupal-optimizations": "^1.2"
   }
 }
