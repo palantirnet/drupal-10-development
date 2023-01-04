@@ -22,6 +22,8 @@ npm-debug.log
 # IDE
 .idea
 .DS_Store
+.editorconfig
+.gitattributes
 
 # Ignore DDEV unless explcitly added
 .ddev
