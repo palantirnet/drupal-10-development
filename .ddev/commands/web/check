@@ -1,0 +1,38 @@
+#!/bin/bash
+
+## Description: Run php checks on a specific module.
+## Usage: check MODULE_NAME
+## Example: "ddev check admin_toolbar"
+
+if [ $# -eq 0 ] ; then
+  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ] ; then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "======================"
+echo "Running checks against: /web/modules/contrib/$1"
+echo "======================"
+
+# auto-fix what can be fixed
+echo "--------------"
+echo "Running PHPCBF"
+echo "--------------"
+vendor/bin/phpcbf web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n --extensions="php,module,inc,install,test,profile,theme"
+# find what is left to fix
+echo "-------------"
+echo "Running PHPCS"
+echo "-------------"
+vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n --extensions="php,module,inc,install,test,profile,theme"
+echo "-------------"
+echo "Running PHPMD"
+echo "-------------"
+vendor/bin/phpmd web/modules/contrib/$1 text codesize,design,naming "php,inc,module,theme,profile,install,test"
+echo "---------------"
+echo "Running PHPStan"
+echo "---------------"
+vendor/bin/phpstan analyse web/modules/contrib/$1
