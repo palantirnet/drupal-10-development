@@ -25,7 +25,7 @@ Now you are ready to install Drupal and test modules:
 
 * `ddev install`
 
-This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, and `admin_toolbar`.
+This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, and `admin_toolbar`. You can login with `admin / admin` at https://d10.ddev.site/user.
 
 ### Drush
 
@@ -150,5 +150,7 @@ Let's assume you want to write a patch for the `workbench_tabs` module. Follow t
 ## Developer notes
 
 We are deliberately not using other project dependencies (notably `the-build`, `phing`, and `drupal-skeleton`) on this project. We want this project template to be as independent as possible. This project also does not require integrations with CircleCI and web hosts.
+
+Solr support is not provided by default. It can be added later if needed.
 
 The `main` branch is locked against commits that are not in approved pull requests.
