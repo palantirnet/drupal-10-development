@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Description: Clean up test results
+## Usage: cleanup
+## Example: "ddev cleanup"
+
+if [ ! -d "web/sites/simpletest/browser_output" ] ; then
+  echo "The expected folder web/sites/simpletest/browser_output does not exist."
+  exit
+fi
+
+rm web/sites/simpletest/browser_output/*.counter
+rm web/sites/simpletest/browser_output/*.html
+
+echo "Test files removed."

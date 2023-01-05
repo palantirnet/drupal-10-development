@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## Description: Run tests on a specific module.
+## Usage: test MODULE_NAME
+## Example: "ddev test admin_toolbar"
+
+if [ $# -eq 0 ] ; then
+  echo "You must specify a module; e.g. 'ddev test admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ] ; then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+CONFIG='/var/www/html/phpunit.xml'
+
+echo "======================"
+echo "Running tests against: /web/modules/contrib/$1"
+echo "======================"
+
+vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1"
+
+echo "-- When you are finished, run 'ddev cleanup' to remove test files."

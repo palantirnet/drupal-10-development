@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Description: Remove a specific module.
+## Usage: remove MODULE_NAME
+## Example: "ddev remove admin_toolbar"
+
+if [ $# -eq 0 ] ; then
+  echo "You must specify a module; e.g. 'ddev remove admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ] ; then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "======================"
+echo "Removing module: /web/modules/contrib/$1"
+echo "======================"
+
+echo "Deleting an existing module from the site..."
+drush pmu "$1"
+rm -rf "web/modules/contrib/$1"
+drush cr
+
+echo "Module disabled and removed."
