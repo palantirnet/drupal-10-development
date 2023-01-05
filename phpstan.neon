@@ -1,0 +1,12 @@
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
+parameters:
+  level: 2
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
+  ignoreErrors:
+    # new static() is a best practice in Drupal, so we cannot fix that.
+    - "#^Unsafe usage of new static#"
+    # Ignore common errors for now.
+    - "#Drupal calls should be avoided in classes, use dependency injection instead#"
