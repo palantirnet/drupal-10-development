@@ -1,0 +1,32 @@
+#!/bin/bash
+
+## Description: Run drupal rectod on a specific module.
+## Usage: rector MODULE_NAME [-d|--dry-run]
+## Example: "ddev rector admin_toolbar" or "ddev rector admin_toolbar -d"
+
+if [ $# -eq 0 ] ; then
+  echo "You must specify a module; e.g. 'ddev rector admin_toolbar'"
+  exit
+fi
+
+if [ $# -eq 2 ]; then
+  DRYRUN="--dry-run"
+  if [ "$1" != "-d" ] && [ "$1" != "--dry-run" ]; then
+    MODULE="$1"
+  else
+    MODULE="$2"
+  fi
+else
+  MODULE="$1"
+  DRYRUN=""
+fi
+
+if [ ! -d "web/modules/contrib/$MODULE" ] ; then
+  echo "The specified module [$MODULE] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "===================="
+echo "Running rector with: /web/modules/contrib/$MODULE $DRYRUN"
+echo "===================="
+vendor/bin/rector process web/modules/contrib/$MODULE $DRYRUN
