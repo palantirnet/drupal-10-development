@@ -1,3 +1,4 @@
+# This file mirrors vendor/mglaman/drupal-check/phpstan.neon but adds an ignore rule.
 includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
