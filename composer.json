@@ -24,6 +24,7 @@
   "require-dev": {
     "drupal/coder": "^8.3",
     "mglaman/drupal-check": "^1.4",
+    "palantirnet/drupal-rector": "^0.13.1",
     "phpmd/phpmd": "^2.13",
     "phpstan/phpstan": "^1.9",
     "phpstan/phpstan-deprecation-rules": "^1.1",
