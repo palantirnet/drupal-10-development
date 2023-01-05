@@ -154,3 +154,4 @@ We are deliberately not using other project dependencies (notably `the-build`, `
 Solr support is not provided by default. It can be added later if needed.
 
 The `main` branch is locked against commits that are not in approved pull requests.
+asd
