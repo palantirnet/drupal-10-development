@@ -13,6 +13,12 @@ web/sites/*/files
 # Ignore local Drupal configuration
 settings.local.php
 settings.ddev.php
+web/sites/default/default.services.yml
+web/sites/default/default.settings.php
+
+# Ignore test output
+web/sites/simpletest
+.phpunit.result.cache
 
 # Ignore Node files
 node_modules
