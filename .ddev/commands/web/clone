@@ -1,0 +1,43 @@
+#!/bin/bash
+
+## Description: Checkout a module using git clone
+## Usage: clone MODULE_NAME [-y]
+## Example: "ddev clone admin_toolbar" or "ddev clone admin_toolbar -y"
+
+if [ $# -eq 0 ] ; then
+  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+  exit
+fi
+
+TYPE="contributor"
+MODULE="$1"
+
+if [ $# -eq 2 ] && [ "$2" = "-y" ]; then
+  TYPE="maintainer"
+fi
+
+echo "============"
+echo "Checking out $MODULE as a $TYPE"
+echo "============"
+
+# Remove any existing checkouts.
+if [ -d "web/modules/contrib/$MODULE" ] ; then
+  echo "Deleting an existing checkout and rebuilding..."
+  rm -rf "web/modules/contrib/$MODULE"
+fi
+
+cd web/modules/contrib
+
+if [ "$TYPE" = "contributor" ]; then
+  echo "git clone https://git.drupalcode.org/project/$MODULE.git"
+  git clone "https://git.drupalcode.org/project/$MODULE.git"
+else
+  echo "git clone git@git.drupal.org:project/$MODULE.git"
+  git clone "git@git.drupal.org:project/$MODULE.git"
+fi
+
+# Notify about composer install if the module has dependencies.
+if [ -f "web/modules/contrib/$MODULE/composer.json" ] ; then
+  echo "This module contains a composer.json file."
+  echo "You may need to run composer install from the project root."
+fi
