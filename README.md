@@ -27,7 +27,7 @@ Now you are ready to install Drupal and test modules:
 
 * `ddev install`
 
-This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, and `admin_toolbar`. You can login with `admin / admin` at https://d10.ddev.site/user.
+This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, `admin_toolbar`, and `admin_toolbar_tools`. You can login with `admin / admin` at https://d10.ddev.site/user.
 
 ### Drush
 
