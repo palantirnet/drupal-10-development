@@ -4,14 +4,17 @@
 ## Usage: rector MODULE_NAME [-d|--dry-run]
 ## Example: "ddev rector admin_toolbar" or "ddev rector admin_toolbar -d"
 
-if [ $# -eq 0 ] ; then
+if [ $# -eq 0 ]
+then
   echo "You must specify a module; e.g. 'ddev rector admin_toolbar'"
   exit
 fi
 
-if [ $# -eq 2 ]; then
+if [ $# -eq 2 ]
+then
   DRYRUN="--dry-run"
-  if [ "$1" != "-d" ] && [ "$1" != "--dry-run" ]; then
+  if [ "$1" != "-d" ] && [ "$1" != "--dry-run" ]
+  then
     MODULE="$1"
   else
     MODULE="$2"
@@ -21,7 +24,8 @@ else
   DRYRUN=""
 fi
 
-if [ ! -d "web/modules/contrib/$MODULE" ] ; then
+if [ ! -d "web/modules/contrib/$MODULE" ]
+then
   echo "The specified module [$MODULE] does not exist in /web/modules/contrib."
   exit
 fi

@@ -4,12 +4,14 @@
 ## Usage: remove MODULE_NAME
 ## Example: "ddev remove admin_toolbar"
 
-if [ $# -eq 0 ] ; then
+if [ $# -eq 0 ]
+then
   echo "You must specify a module; e.g. 'ddev remove admin_toolbar'"
   exit
 fi
 
-if [ ! -d "web/modules/contrib/$1" ] ; then
+if [ ! -d "web/modules/contrib/$1" ]
+then
   echo "The specified module [$1] does not exist in /web/modules/contrib."
   exit
 fi

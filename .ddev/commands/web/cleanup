@@ -4,7 +4,8 @@
 ## Usage: cleanup
 ## Example: "ddev cleanup"
 
-if [ ! -d "web/sites/simpletest/browser_output" ] ; then
+if [ ! -d "web/sites/simpletest/browser_output" ]
+then
   echo "The expected folder web/sites/simpletest/browser_output does not exist."
   exit
 fi
