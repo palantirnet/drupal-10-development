@@ -4,14 +4,30 @@
 ## Usage: test MODULE_NAME
 ## Example: "ddev test admin_toolbar"
 
-if [ $# -eq 0 ] ; then
+if [ $# -eq 0 ]
+then
   echo "You must specify a module; e.g. 'ddev test admin_toolbar'"
   exit
 fi
 
-if [ ! -d "web/modules/contrib/$1" ] ; then
+if [ ! -d "web/modules/contrib/$1" ]
+then
   echo "The specified module [$1] does not exist in /web/modules/contrib."
   exit
+fi
+
+# Ensure we have a files directory for test output.
+if [ ! -d "web/sites/simpletest/browser_output" ]
+then
+  # See https://linuxize.com/post/bash-wait/
+  if [ ! -d "web/sites/simpletest" ]
+  then
+    mkdir web/sites/simpletest &
+    PROCESS_ID=$!
+    wait $PROCESS_ID
+  fi
+  mkdir web/sites/simpletest/browser_output
+  echo "Created an output directory"
 fi
 
 CONFIG='/var/www/html/phpunit.xml'
