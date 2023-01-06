@@ -17,11 +17,11 @@ This project requires [DDEV](https://ddev.readthedocs.io/en/latest/users/install
 
 Checkout the project and run the following commands from project root:
 
+* `ddev debug nfsmount`
+  * If [this debug returns an error](https://ddev.readthedocs.io/en/latest/users/install/performance/#filesystem-performance), run `ddev config global --nfs-mount-enabled`
 * `ddev start`
 * `composer install`
 * `ddev auth ssh`
-* `ddev debug nfsmount`
-  * If [this debug returns an error](https://ddev.readthedocs.io/en/latest/users/install/performance/#filesystem-performance), run `ddev config global --nfs-mount-enabled`
 
 Now you are ready to install Drupal and test modules:
 
