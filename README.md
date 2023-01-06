@@ -18,7 +18,7 @@ This project requires [DDEV](https://ddev.readthedocs.io/en/latest/users/install
 Checkout the project and run the following commands from project root:
 
 * `ddev debug nfsmount`
-  * If [this debug returns an error](https://ddev.readthedocs.io/en/latest/users/install/performance/#nfs), run `ddev config global --nfs-mount-enabled`
+  * If [this debug returns an error](https://ddev.readthedocs.io/en/latest/users/install/performance/#macos-nfs-setup), run `ddev config global --nfs-mount-enabled`
 * `ddev start`
 * `composer install`
 * `ddev auth ssh`
