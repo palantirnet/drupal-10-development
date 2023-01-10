@@ -1,0 +1,12 @@
+# This file mirrors vendor/mglaman/drupal-check/phpstan.neon but adds an ignore rule.
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
+	- vendor/mglaman/phpstan-drupal/extension.neon
+parameters:
+  level: 2
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
+  ignoreErrors:
+    # new static() is a best practice in Drupal, so we cannot fix that.
+    - "#^Unsafe usage of new static#"
