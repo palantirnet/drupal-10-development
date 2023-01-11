@@ -33,7 +33,7 @@ vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n --
 echo "-------------"
 echo "Running PHPMD"
 echo "-------------"
-vendor/bin/phpmd web/modules/contrib/$1 text codesize,design,naming "php,inc,module,theme,profile,install,test"
+vendor/bin/phpmd web/modules/contrib/$1 text phpmd.xml "php,inc,module,theme,profile,install,test"
 echo "---------------"
 echo "Running PHPStan"
 echo "---------------"
