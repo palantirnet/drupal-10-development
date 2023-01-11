@@ -10,3 +10,5 @@ parameters:
   ignoreErrors:
     # new static() is a best practice in Drupal, so we cannot fix that.
     - "#^Unsafe usage of new static#"
+    # PHP unit statics: https://github.com/phpstan/phpstan-strict-rules/pull/5
+    - "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert#"
