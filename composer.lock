@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "911b5cc5f5688a89e0d79ac41e702359",
+    "content-hash": "2d64e07ef4df01d9b5c027ea4d8998be",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7404,20 +7404,20 @@
         },
         {
             "name": "palantirnet/drupal-rector",
-            "version": "0.13.1",
+            "version": "dev-upgrade-15.x",
             "source": {
                 "type": "git",
                 "url": "https://github.com/palantirnet/drupal-rector.git",
-                "reference": "4814ad9fa7d19be068f75558220383967c258d10"
+                "reference": "fa2cc6af02d684074611eca93a2b3ef486e4ba8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palantirnet/drupal-rector/zipball/4814ad9fa7d19be068f75558220383967c258d10",
-                "reference": "4814ad9fa7d19be068f75558220383967c258d10",
+                "url": "https://api.github.com/repos/palantirnet/drupal-rector/zipball/fa2cc6af02d684074611eca93a2b3ef486e4ba8b",
+                "reference": "fa2cc6af02d684074611eca93a2b3ef486e4ba8b",
                 "shasum": ""
             },
             "require": {
-                "rector/rector": "~0.13.8",
+                "rector/rector": "~0.15.2",
                 "webflo/drupal-finder": "^1.2"
             },
             "replace": {
@@ -7426,7 +7426,7 @@
             },
             "require-dev": {
                 "cweagans/composer-patches": "^1.7.2",
-                "php": "^8.0",
+                "php": "^8.1",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan": "^1.0",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
@@ -7475,9 +7475,9 @@
                 "rector"
             ],
             "support": {
-                "source": "https://github.com/palantirnet/drupal-rector/tree/0.13.1"
+                "source": "https://github.com/palantirnet/drupal-rector/tree/upgrade-15.x"
             },
-            "time": "2022-08-05T19:55:37+00:00"
+            "time": "2023-01-10T21:05:28+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -8061,16 +8061,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.7",
+            "version": "1.9.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f"
+                "reference": "f68d7cc3d0638a01bc6321cb826e4cae7fa6884d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0501435cd342eac7664bd62155b1ef907fc60b6f",
-                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f68d7cc3d0638a01bc6321cb826e4cae7fa6884d",
+                "reference": "f68d7cc3d0638a01bc6321cb826e4cae7fa6884d",
                 "shasum": ""
             },
             "require": {
@@ -8100,7 +8100,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.7"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.9"
             },
             "funding": [
                 {
@@ -8116,7 +8116,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-04T21:59:57+00:00"
+            "time": "2023-01-11T14:39:22+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -8636,31 +8636,27 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.13.10",
+            "version": "0.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "d1e069db8ad3b4aea2b968248370c21415e4c180"
+                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d1e069db8ad3b4aea2b968248370c21415e4c180",
-                "reference": "d1e069db8ad3b4aea2b968248370c21415e4c180",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
+                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.8.2"
+                "phpstan/phpstan": "^1.9.7"
             },
             "conflict": {
-                "phpstan/phpdoc-parser": "<1.6.2",
-                "rector/rector-cakephp": "*",
                 "rector/rector-doctrine": "*",
-                "rector/rector-laravel": "*",
-                "rector/rector-nette": "*",
-                "rector/rector-phpoffice": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-php-parser": "*",
                 "rector/rector-phpunit": "*",
-                "rector/rector-prefixed": "*",
                 "rector/rector-symfony": "*"
             },
             "bin": [
@@ -8669,7 +8665,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.13-dev"
+                    "dev-main": "0.14-dev"
                 }
             },
             "autoload": {
@@ -8684,7 +8680,7 @@
             "description": "Instant Upgrade and Automated Refactoring of any PHP code",
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.13.10"
+                "source": "https://github.com/rectorphp/rector/tree/0.15.4"
             },
             "funding": [
                 {
@@ -8692,7 +8688,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-03T12:48:10+00:00"
+            "time": "2023-01-10T11:09:49+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10361,7 +10357,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "palantirnet/drupal-rector": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],

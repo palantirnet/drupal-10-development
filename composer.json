@@ -28,7 +28,7 @@
     "friends-of-behat/mink-browserkit-driver": "^1.6",
     "mglaman/drupal-check": "^1.4",
     "mikey179/vfsstream": "^1.6",
-    "palantirnet/drupal-rector": "^0.13.1",
+    "palantirnet/drupal-rector": "dev-upgrade-15.x",
     "phpmd/phpmd": "^2.13",
     "phpspec/prophecy": "^1.16",
     "phpspec/prophecy-phpunit": "^2.0",
