@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Description: Run PHPMD on a specific module.
+## Usage: md MODULE_NAME
+## Example: "ddev md admin_toolbar"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev md admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "======================"
+echo "Running PHPMD against: /web/modules/contrib/$1"
+echo "======================"
+vendor/bin/phpmd web/modules/contrib/$1 text codesize,design,naming "php,inc,module,theme,profile,install,test"
