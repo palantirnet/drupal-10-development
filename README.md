@@ -53,7 +53,9 @@ We have automated common tasks as ddev commands to reduce dependencies. The foll
 
 **Example:** `ddev check admin_toolbar`
 
-The `check` command will run code reviews using PHPCBF, PHPCS, PHPMD, and PHPStan against the selected module.
+The `check` command will run code reviews using PHPCBF, PHPCS, PHPMD, and PHPStan against the selected module. PHPCBF may change the module's code as part of this action.
+
+These commands can also be run individually as `ddev md`, `ddev sniff`, and `ddev stan`.
 
 ### ddev cleanup
 
@@ -83,6 +85,14 @@ Note that this command will `delete` an existing copy of the module.
 
 Installs the default drupal site.
 
+### ddev md
+
+**Command:** `ddev md MODULE`
+
+**Example:** `ddev md admin_toolbar`
+
+The `md` command will run code reviews using PHPMD against the selected module.
+
 ### ddev rector
 
 **Command:** `ddev rector MODULE` or `ddev rector MODULE -d` or `ddev rector MODULE --dry-run`
@@ -91,7 +101,7 @@ Installs the default drupal site.
 
 **Example:** `ddev rector admin_toolbar -d`
 
-The `rector` command will run Drupal Rector updates against the selected module. Using the `-d` or `--dry-run` flag will not perform the changes, but instead show the suggested changes.
+The `rector` command will run Drupal Rector updates against the selected module, potentially rewriting the module's code. Using the `-d` or `--dry-run` flag will not perform the changes, but instead show the suggested changes.
 
 ### ddev remove
 
@@ -100,6 +110,22 @@ The `rector` command will run Drupal Rector updates against the selected module.
 **Example:** `ddev rector admin_toolbar`
 
 The `ddev remove` command will uninstall a module and delete it from the `web/modules/contrib` directory.
+
+### ddev sniff
+
+**Command:** `ddev sniff MODULE`
+
+**Example:** `ddev sniff admin_toolbar`
+
+The `sniff` command will run code reviews using PHPCBF and PHPCS against the selected module. PHPCBF may change the module's code as part of this action.
+
+### ddev stan
+
+**Command:** `ddev stan MODULE`
+
+**Example:** `ddev stan admin_toolbar`
+
+The `stan` command will run code reviews using PHPStan against the selected module.
 
 ### ddev test
 
