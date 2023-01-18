@@ -34,7 +34,7 @@ do
 done
 
 # Ensure that user did not specify both a tag and a branch.
-if [ -z "$TAG" ] && [ -z "$BRANCH" ]
+if [ ! -z "$TAG" ] && [ ! -z "$BRANCH" ]
 then
   echo "You cannot specify both a tag and a branch."
   help
@@ -75,11 +75,11 @@ fi
 
 # If specified, check out a branch or tag.
 cd $MODULE
-if [ "$TAG" != "default" ]
+if [ ! -z $TAG ]
 then
   echo "git checkout $TAG -b $TAG"
   git checkout "$TAG" -b "$TAG"
-elif [ "$BRANCH" != "default" ]
+elif [ ! -z "$BRANCH" ]
 then
   echo "git checkout --track origin/$BRANCH"
   git checkout --track origin/"$BRANCH"
