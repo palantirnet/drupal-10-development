@@ -1,15 +1,15 @@
 #!/bin/bash
 
 ## Description: Checkout a module using git clone
-## Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-m] MODULE_NAME
-## Example: "ddev clone admin_toolbar" or "ddev clone -b develop -m admin_toolbar"
+## Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-y] MODULE_NAME
+## Example: "ddev clone admin_toolbar" or "ddev clone -b develop -y admin_toolbar"
 
 help() {
-  echo "Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-m] MODULE_NAME"
+  echo "Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-y] MODULE_NAME"
   echo "Options:"
   echo "  -b    Specify a branch to check out."
   echo "  -t    Specify a tag to check out."
-  echo "  -m    Clone the repo as a maintainer."
+  echo "  -y    Clone the repo as a maintainer."
   exit
 }
 
