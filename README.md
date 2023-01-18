@@ -17,8 +17,6 @@ This project requires [DDEV](https://ddev.readthedocs.io/en/latest/users/install
 
 Checkout the project and run the following commands from project root:
 
-* `ddev debug nfsmount`
-  *See the [macOS NFS Setup section](https://ddev.readthedocs.io/en/latest/users/install/performance/#nfs) of the DDEV documentation.
 * `ddev start`
 * `composer install`
 * `ddev auth ssh`
@@ -28,6 +26,14 @@ Now you are ready to install Drupal and test modules:
 * `ddev install`
 
 This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, `admin_toolbar`, and `admin_toolbar_tools`. You can login with `admin / admin` at https://d10.ddev.site/user.
+
+#### Note on NFS:
+
+If using NFS to speed up the container, see these steps.
+
+* `ddev debug nfsmount` (optional)
+  * See the [macOS NFS Setup section](https://ddev.readthedocs.io/en/latest/users/install/performance/#nfs) of the DDEV documentation.
+
 
 ### Drush
 
@@ -56,6 +62,8 @@ We have automated common tasks as ddev commands to reduce dependencies. The foll
 The `check` command will run code reviews using PHPCBF, PHPCS, PHPMD, and PHPStan against the selected module. PHPCBF may change the module's code as part of this action.
 
 These commands can also be run individually as `ddev md`, `ddev sniff`, and `ddev stan`.
+
+Note that PHPStan is pinned to [PHPStan level 2](https://phpstan.org/user-guide/rule-levels) in this command. Use [`ddev stan`](#ddev-stan) to override the level.
 
 ### ddev cleanup
 
@@ -125,7 +133,11 @@ The `sniff` command will run code reviews using PHPCBF and PHPCS against the sel
 
 **Example:** `ddev stan admin_toolbar`
 
+**Example:** `ddev stan admin_toolbar -l 8`
+
 The `stan` command will run code reviews using PHPStan against the selected module.
+
+This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/rule-levels). You can pass a preferred level (0-8) using the `-l` flag.
 
 ### ddev test
 
