@@ -9,13 +9,13 @@ help() {
   echo "Options:"
   echo "  -b    Specify a branch to check out."
   echo "  -t    Specify a tag to check out."
-  echo "  -y    Clone the repo as a maintainer."
+  echo "  -c    Clone the repo as a contributor (defaults to maintainer)."
   exit
 }
 
-TYPE="contributor"
+TYPE="maintainer"
 
-while getopts 'b:t:m' opt
+while getopts 'b:t:c' opt
 do
   case $opt in
     b)
@@ -24,8 +24,8 @@ do
     t)
       TAG="$OPTARG"
       ;;
-    m)
-      TYPE="maintainer"
+    c)
+      TYPE="contributor"
       ;;
     ?)
       help
