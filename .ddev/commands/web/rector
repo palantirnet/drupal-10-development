@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## Description: Run drupal rectod on a specific module.
+## Description: Run drupal rector on a specific module.
 ## Usage: rector MODULE_NAME [-d|--dry-run]
 ## Example: "ddev rector admin_toolbar" or "ddev rector admin_toolbar -d"
 

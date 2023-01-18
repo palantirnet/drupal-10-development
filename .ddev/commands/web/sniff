@@ -2,7 +2,7 @@
 
 ## Description: Run php code sniffer on a specific module.
 ## Usage: sniff MODULE_NAME
-## Example: "ddev snigg admin_toolbar"
+## Example: "ddev sniff admin_toolbar"
 
 if [ $# -eq 0 ]
 then
