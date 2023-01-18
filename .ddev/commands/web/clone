@@ -1,21 +1,52 @@
 #!/bin/bash
 
 ## Description: Checkout a module using git clone
-## Usage: clone MODULE_NAME [-y]
-## Example: "ddev clone admin_toolbar" or "ddev clone admin_toolbar -y"
+## Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-m] MODULE_NAME
+## Example: "ddev clone admin_toolbar" or "ddev clone -b develop -m admin_toolbar"
 
-if [ $# -eq 0 ]
-then
-  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+help() {
+  echo "Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-m] MODULE_NAME"
+  echo "Options:"
+  echo "  -b    Specify a branch to check out."
+  echo "  -t    Specify a tag to check out."
+  echo "  -m    Clone the repo as a maintainer."
   exit
-fi
+}
 
 TYPE="contributor"
-MODULE="$1"
 
-if [ $# -eq 2 ] && [ "$2" = "-y" ]
+while getopts 'b:t:m' opt
+do
+  case $opt in
+    b)
+      BRANCH="$OPTARG"
+      ;;
+    t)
+      TAG="$OPTARG"
+      ;;
+    m)
+      TYPE="maintainer"
+      ;;
+    ?)
+      help
+      ;;
+  esac
+done
+
+# Ensure that user did not specify both a tag and a branch.
+if [ -z "$TAG" ] && [ -z "$BRANCH" ]
 then
-  TYPE="maintainer"
+  echo "You cannot specify both a tag and a branch."
+  help
+fi
+
+# Retrieve the module name from the end of the argument list.
+shift $((OPTIND-1))
+if [ -z $1 ]; then
+  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+  help
+else
+  MODULE=$1
 fi
 
 echo "============"
@@ -29,6 +60,8 @@ then
   rm -rf "web/modules/contrib/$MODULE"
 fi
 
+# Create the contrib directory if it does not exist.
+mkdir -p web/modules/contrib
 cd web/modules/contrib
 
 if [ "$TYPE" = "contributor" ]
@@ -40,9 +73,22 @@ else
   git clone "git@git.drupal.org:project/$MODULE.git"
 fi
 
+# If specified, check out a branch or tag.
+cd $MODULE
+if [ "$TAG" != "default" ]
+then
+  echo "git checkout $TAG -b $TAG"
+  git checkout "$TAG" -b "$TAG"
+elif [ "$BRANCH" != "default" ]
+then
+  echo "git checkout --track origin/$BRANCH"
+  git checkout --track origin/"$BRANCH"
+fi
+
 # Notify about composer install if the module has dependencies.
 if [ -f "web/modules/contrib/$MODULE/composer.json" ]
 then
   echo "This module contains a composer.json file."
   echo "You may need to run composer install from the project root."
 fi
+
