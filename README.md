@@ -137,7 +137,7 @@ The `sniff` command will run code reviews using PHPCBF and PHPCS against the sel
 
 The `stan` command will run code reviews using PHPStan against the selected module.
 
-This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/rule-levels). You can pass a preferred level (0-8) using the `-l` flag.
+This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/rule-levels). You can pass a preferred level (`0-9`, or `max`) using the `-l` flag.
 
 ### ddev test
 
