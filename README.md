@@ -105,6 +105,18 @@ Installs the default drupal site.
 
 The `md` command will run code reviews using PHPMD against the selected module.
 
+### ddev phpversion
+
+**Command:** `ddev phpversion [-v VERSION] MODULE`
+
+**Example:** `ddev phpversion admin_toolbar`
+
+**Example:** `ddev phpversion -v 7.4 admin_toolbar`
+
+The `phpversion` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
+
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.1`.
+
 ### ddev rector
 
 **Command:** `ddev rector MODULE` or `ddev rector MODULE -d` or `ddev rector MODULE --dry-run`
