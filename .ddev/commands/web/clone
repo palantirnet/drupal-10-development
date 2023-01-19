@@ -43,7 +43,7 @@ fi
 # Retrieve the module name from the end of the argument list.
 shift $((OPTIND-1))
 if [ -z $1 ]; then
-  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+  echo "You must specify a module; e.g. 'ddev clone admin_toolbar'"
   help
 else
   MODULE=$1
