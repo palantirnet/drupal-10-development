@@ -4,6 +4,8 @@
 ## Usage: sniff MODULE_NAME
 ## Example: "ddev snigg admin_toolbar"
 
+$PHP_VERSION="8.1"
+
 if [ $# -eq 0 ]
 then
   echo "You must specify a module; e.g. 'ddev sniff admin_toolbar'"
@@ -30,7 +32,7 @@ echo "-------------"
 echo "Running PHPCS"
 echo "-------------"
 vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n --extensions="php,module,inc,install,test,profile,theme"
-echo "----------------------------------------------------"
-echo "Running PHPCS with PHP Compatibility coding standard"
-echo "----------------------------------------------------"
-vendor/bin/phpcs -p web/modules/contrib/$1 --standard="PHPCompatibility" --runtime-set testVersion "8.1" --extensions="php,module,inc,install,test,profile,theme"
+echo "-------------"
+echo "Checking PHP $PHP_VERSION compatibility"
+echo "-------------"
+vendor/bin/phpcs web/modules/contrib/$1 --standard="PHPCompatibility" --runtime-set testVersion "$PHP_VERSION" --extensions="php,module,inc,install,test,profile,theme"
