@@ -1,0 +1,46 @@
+#!/bin/bash
+
+## Description: Run php code sniffer with PHP Compatibility coding standard on a specific module.
+## Usage: phpversion [-v VERSION] MODULE_NAME
+## Example: "ddev phpversion -v 8.1 admin_toolbar"
+
+help() {
+  echo "Usage: phpversion [-v VERSION] MODULE_NAME"
+  echo "Options:"
+  echo "  -v    Specify a PHP version to test. Defaults to PHP 8.1."
+  exit
+}
+
+PHP_VERSION="8.1"
+
+while getopts 'v:' opt
+do
+  case $opt in
+    v)
+      PHP_VERSION="$OPTARG"
+      ;;
+    ?)
+      help
+      ;;
+  esac
+done
+
+# Retrieve the module name from the end of the argument list.
+shift $((OPTIND-1))
+if [ -z $1 ]; then
+  echo "You must specify a module; e.g. 'ddev phpversion admin_toolbar'"
+  help
+else
+  MODULE=$1
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "--------------------------------------------------"
+echo "Testing $MODULE for PHP $PHP_VERSION compatibility"
+echo "--------------------------------------------------"
+vendor/bin/phpcs -p web/modules/contrib/$1 --standard="PHPCompatibility" --runtime-set testVersion "$PHP_VERSION" --extensions="php,module,inc,install,test,profile,theme"
