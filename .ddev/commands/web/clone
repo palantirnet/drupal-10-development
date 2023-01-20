@@ -72,7 +72,6 @@ if [ -z "$MODULE" ]
 then
   echo "You must specify a module; e.g. 'ddev clone admin_toolbar'"
   help
-  exit
 fi
 
 # Ensure that user did not specify both a tag and a branch.
