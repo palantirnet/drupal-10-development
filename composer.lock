@@ -1524,16 +1524,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "10.0.1",
+            "version": "10.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "9dd62f281436a01fe03546a5057624c184a00fdf"
+                "reference": "13857e5a766b339406c364a194357ecc6304e831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/9dd62f281436a01fe03546a5057624c184a00fdf",
-                "reference": "9dd62f281436a01fe03546a5057624c184a00fdf",
+                "url": "https://api.github.com/repos/drupal/core/zipball/13857e5a766b339406c364a194357ecc6304e831",
+                "reference": "13857e5a766b339406c364a194357ecc6304e831",
                 "shasum": ""
             },
             "require": {
@@ -1676,13 +1676,13 @@
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
             "support": {
-                "source": "https://github.com/drupal/core/tree/10.0.1"
+                "source": "https://github.com/drupal/core/tree/10.0.2"
             },
-            "time": "2023-01-04T15:36:47+00:00"
+            "time": "2023-01-18T17:55:40+00:00"
         },
         {
             "name": "drupal/core-composer-scaffold",
-            "version": "10.0.1",
+            "version": "10.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-composer-scaffold.git",
@@ -1726,13 +1726,13 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-composer-scaffold/tree/10.0.1"
+                "source": "https://github.com/drupal/core-composer-scaffold/tree/10.0.2"
             },
             "time": "2022-07-01T08:33:05+00:00"
         },
         {
             "name": "drupal/core-project-message",
-            "version": "10.0.1",
+            "version": "10.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-project-message.git",
@@ -1767,22 +1767,22 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-project-message/tree/10.0.1"
+                "source": "https://github.com/drupal/core-project-message/tree/10.0.2"
             },
             "time": "2022-07-01T08:33:05+00:00"
         },
         {
             "name": "drupal/core-recommended",
-            "version": "10.0.1",
+            "version": "10.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-recommended.git",
-                "reference": "236f62769690d63ee22ac8460968ec54002867d7"
+                "reference": "51013914c2d8a2d4fc4d70480d97ed0f1d8b1c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/236f62769690d63ee22ac8460968ec54002867d7",
-                "reference": "236f62769690d63ee22ac8460968ec54002867d7",
+                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/51013914c2d8a2d4fc4d70480d97ed0f1d8b1c6d",
+                "reference": "51013914c2d8a2d4fc4d70480d97ed0f1d8b1c6d",
                 "shasum": ""
             },
             "require": {
@@ -1790,7 +1790,7 @@
                 "composer/semver": "~3.3.2",
                 "doctrine/annotations": "~1.13.3",
                 "doctrine/lexer": "~1.2.3",
-                "drupal/core": "10.0.1",
+                "drupal/core": "10.0.2",
                 "egulias/email-validator": "~3.2.1",
                 "guzzlehttp/guzzle": "~7.5.0",
                 "guzzlehttp/promises": "~1.5.2",
@@ -1846,9 +1846,9 @@
             ],
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core.",
             "support": {
-                "source": "https://github.com/drupal/core-recommended/tree/10.0.1"
+                "source": "https://github.com/drupal/core-recommended/tree/10.0.2"
             },
-            "time": "2023-01-04T15:36:47+00:00"
+            "time": "2023-01-18T17:55:40+00:00"
         },
         {
             "name": "drupal/devel",
