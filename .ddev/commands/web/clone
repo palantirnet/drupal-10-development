@@ -1,11 +1,11 @@
 #!/bin/bash
 
 ## Description: Checkout a module using git clone
-## Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-y] MODULE_NAME
-## Example: "ddev clone admin_toolbar" or "ddev clone -b develop -y admin_toolbar"
+## Usage: clone MODULE_NAME [-b BRANCH_NAME | -t TAG_NAME] [-c]
+## Example: "ddev clone admin_toolbar" or "ddev clone admin_toolbar -b develop -c"
 
 help() {
-  echo "Usage: clone [-b BRANCH_NAME | -t TAG_NAME] [-y] MODULE_NAME"
+  echo "Usage: clone MODULE_NAME [-b BRANCH_NAME | -t TAG_NAME] [-c]"
   echo "Options:"
   echo "  -b    Specify a branch to check out."
   echo "  -t    Specify a tag to check out."
@@ -13,11 +13,42 @@ help() {
   exit
 }
 
+# Set getopts flags. Numeric flags are positional arguments and must be followed by a colon.
+FLAGS='b:t:c1:'
+
+# Assign ascending numeric flags to positional arguments.
+POS_ARG_CT=0
+OPTION_EXPECTS_ARG=0
+for arg in "$@"
+do
+  shift
+  case "$arg" in
+    \-*)
+      if [[ "$FLAGS" = *"$(echo $arg | sed 's/-//g'):"* ]]
+      then
+        OPTION_EXPECTS_ARG=1
+      fi
+      set -- "$@" "$arg"
+      ;;
+    *)
+      if [ $OPTION_EXPECTS_ARG = 0 ]
+      then
+        POS_ARG_CT=$((POS_ARG_CT+1))
+        set -- "$@" "-$POS_ARG_CT" "$arg"
+      else
+        OPTION_EXPECTS_ARG=0
+        set -- "$@" "$arg"
+      fi
+      ;;
+  esac
+done
+
 TYPE="maintainer"
 
-while getopts 'b:t:c' opt
+while getopts $FLAGS opt
 do
   case $opt in
+    # Flagged arguments
     b)
       BRANCH="$OPTARG"
       ;;
@@ -27,26 +58,28 @@ do
     c)
       TYPE="contributor"
       ;;
+    # Positional arguments
+    1)
+      MODULE="$OPTARG"
+      ;;
     ?)
       help
       ;;
   esac
 done
 
+if [ -z "$MODULE" ]
+then
+  echo "You must specify a module; e.g. 'ddev clone admin_toolbar'"
+  help
+  exit
+fi
+
 # Ensure that user did not specify both a tag and a branch.
 if [ ! -z "$TAG" ] && [ ! -z "$BRANCH" ]
 then
   echo "You cannot specify both a tag and a branch."
   help
-fi
-
-# Retrieve the module name from the end of the argument list.
-shift $((OPTIND-1))
-if [ -z $1 ]; then
-  echo "You must specify a module; e.g. 'ddev clone admin_toolbar'"
-  help
-else
-  MODULE=$1
 fi
 
 echo "============"
