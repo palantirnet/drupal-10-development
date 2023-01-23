@@ -107,11 +107,11 @@ The `md` command will run code reviews using PHPMD against the selected module.
 
 ### ddev phpversion
 
-**Command:** `ddev phpversion [-v VERSION] MODULE`
+**Command:** `ddev phpversion MODULE [-v VERSION]`
 
 **Example:** `ddev phpversion admin_toolbar`
 
-**Example:** `ddev phpversion -v 7.4 admin_toolbar`
+**Example:** `ddev phpversion admin_toolbar -v 7.4`
 
 The `phpversion` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
 
