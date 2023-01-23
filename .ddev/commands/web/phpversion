@@ -1,23 +1,58 @@
 #!/bin/bash
 
 ## Description: Run php code sniffer with PHP Compatibility coding standard on a specific module.
-## Usage: phpversion [-v VERSION] MODULE_NAME
-## Example: "ddev phpversion -v 8.1 admin_toolbar"
+## Usage: phpversion MODULE_NAME [-v VERSION]
+## Example: "ddev phpversion admin_toolbar -v 8.1"
 
 help() {
-  echo "Usage: phpversion [-v VERSION] MODULE_NAME"
+  echo "Usage: phpversion MODULE_NAME [-v VERSION]"
   echo "Options:"
-  echo "  -v    Specify a PHP version to test. Defaults to PHP 8.1."
+  echo "  -v    Specify a PHP version to test against. Defaults to PHP 8.1."
   exit
 }
 
+# Set getopts flags. Numeric flags are positional arguments and must be followed by a colon.
+FLAGS='v:1:'
+
+# Assign ascending numeric flags to positional arguments.
+POS_ARG_CT=0
+OPTION_EXPECTS_ARG=0
+for arg in "$@"
+do
+  shift
+  case "$arg" in
+    \-*)
+      if [[ "$FLAGS" = *"$(echo $arg | sed 's/-//g'):"* ]]
+      then
+        OPTION_EXPECTS_ARG=1
+      fi
+      set -- "$@" "$arg"
+      ;;
+    *)
+      if [ $OPTION_EXPECTS_ARG = 0 ]
+      then
+        POS_ARG_CT=$((POS_ARG_CT+1))
+        set -- "$@" "-$POS_ARG_CT" "$arg"
+      else
+        OPTION_EXPECTS_ARG=0
+        set -- "$@" "$arg"
+      fi
+      ;;
+  esac
+done
+
 PHP_VERSION="8.1"
 
-while getopts 'v:' opt
+while getopts $FLAGS opt
 do
   case $opt in
+    # Flagged arguments
     v)
       PHP_VERSION="$OPTARG"
+      ;;
+    # Positional arguments
+    1)
+      MODULE="$OPTARG"
       ;;
     ?)
       help
@@ -25,22 +60,19 @@ do
   esac
 done
 
-# Retrieve the module name from the end of the argument list.
-shift $((OPTIND-1))
-if [ -z $1 ]; then
-  echo "You must specify a module; e.g. 'ddev phpversion admin_toolbar'"
+if [ -z "$MODULE" ]
+then
+  echo "You must specify a module; e.g. 'ddev clone admin_toolbar'"
   help
-else
-  MODULE=$1
 fi
 
-if [ ! -d "web/modules/contrib/$1" ]
+if [ ! -d "web/modules/contrib/$MODULE" ]
 then
-  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  echo "The specified module [$MODULE] does not exist in /web/modules/contrib."
   exit
 fi
 
 echo "--------------------------------------------------"
 echo "Testing $MODULE for PHP $PHP_VERSION compatibility"
 echo "--------------------------------------------------"
-vendor/bin/phpcs -p web/modules/contrib/$1 --standard="PHPCompatibility" --runtime-set testVersion "$PHP_VERSION" --extensions="php,module,inc,install,test,profile,theme"
+vendor/bin/phpcs -p web/modules/contrib/$MODULE --standard="PHPCompatibility" --runtime-set testVersion "$PHP_VERSION" --extensions="php,module,inc,install,test,profile,theme"
