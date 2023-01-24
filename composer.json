@@ -29,6 +29,7 @@
     "mglaman/drupal-check": "^1.4",
     "mikey179/vfsstream": "^1.6",
     "palantirnet/drupal-rector": "^0.15.0",
+    "phpcompatibility/php-compatibility": "^9.3",
     "phpmd/phpmd": "^2.13",
     "phpspec/prophecy": "^1.16",
     "phpspec/prophecy-phpunit": "^2.0",
