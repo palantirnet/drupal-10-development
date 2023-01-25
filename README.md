@@ -217,7 +217,7 @@ The `main` branch is locked against commits that are not in approved pull reques
 
 ### Solr server
 
-A solr server is ready to be used at http://drupal-10-development.ddev.site:8983/solr/.
+A solr server is provided at http://drupal-10-development.ddev.site:8983/solr/. To ensure service is ready to be used, restart service using `ddev restart`.
 
 `search_api_solr` server dependency is not currently installed, if you want to test the functionality try this branch [search_api_example](https://github.com/palantirnet/drupal-10-development/tree/search_api_example) or follow these steps.
   * Install `search_api_solr` module `composer require drupal/search_api_solr`
@@ -229,5 +229,5 @@ A solr server is ready to be used at http://drupal-10-development.ddev.site:8983
     * Set "Backend" to "Solr"
     * Set "Solr host" to solr.
     * Set "Solr core" name to "dev".
-    *Under "Advanced server configuration" set the "solr.install.dir" to /opt/solr.
+    * Under "Advanced server configuration" set the "solr.install.dir" to /opt/solr.
   * `ddev restart`
