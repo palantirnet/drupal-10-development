@@ -235,4 +235,4 @@ A solr server is provided at http://drupal-10-development.ddev.site:8983/solr/. 
 
 #### Solr cloud config
 
-The solr installation is not currently using cloud config (see the Search API Solr README file). Pull requests to add this feature are welcome.
+The Solr installation is not currently using [cloud config](https://github.com/ddev/ddev-contrib/tree/master/docker-compose-services/solr). Pull requests to add this feature are welcome.
