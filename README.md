@@ -220,14 +220,19 @@ The `main` branch is locked against commits that are not in approved pull reques
 A solr server is provided at http://drupal-10-development.ddev.site:8983/solr/. To ensure service is ready to be used, restart service using `ddev restart`.
 
 `search_api_solr` server dependency is not currently installed, if you want to test the functionality try this branch [search_api_example](https://github.com/palantirnet/drupal-10-development/tree/search_api_example) or follow these steps.
-  * Install `search_api_solr` module `composer require drupal/search_api_solr`
+  * Install `search_api_solr` module:
+    * Run `composer require drupal/search_api_solr` to install all dependencies.
+    * If you wish to test a branch of that module, then run `ddev clone` to overwrite the composer checkout.
   * Enable the `search_api_solr` module either using the web interface or `ddev drush en -y search_api_solr`
-  * Navigate to [Search api page](https://drupal-10-development.ddev.site/admin/config/search/search-api), click "Add server button" 
+  * Navigate to [Search api page](https://drupal-10-development.ddev.site/admin/config/search/search-api), click "Add server button"
   * Choose Solr as backend.
   * Choose "Standard" as the Solr connector type and configure it:
-    * Set "Server name" to anything you want. Maybe "ddev-solr-server".
-    * Set "Backend" to "Solr"
-    * Set "Solr host" to solr.
-    * Set "Solr core" name to "dev".
-    * Under "Advanced server configuration" set the "solr.install.dir" to /opt/solr.
-  * `ddev restart`
+    * Set "Server name" to anything you want. Maybe `ddev-solr-server`.
+    * Set "Backend" to `Solr`
+    * Set "Solr host" to `drupal-10-development.ddev.site`.
+    * Set "Solr core" name to `dev`.
+    * Under "Advanced server configuration" set the "solr.install.dir" to `/opt/solr`.
+
+#### Solr cloud config
+
+The solr installation is not currently using cloud config (see the Search API Solr README file). Pull requests to add this feature are welcome.
