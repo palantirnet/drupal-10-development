@@ -1,8 +1,9 @@
 #!/bin/bash
 
 ## Description: Run tests on a specific module.
-## Usage: test MODULE_NAME
+## Usage: test MODULE_NAME {TEST_TYPE} {TEST CLASS}
 ## Example: "ddev test admin_toolbar"
+## Example: "ddev test admin_toolbar Functional AdminToolbarAdminMenuTest.php"
 
 if [ $# -eq 0 ]
 then
@@ -32,10 +33,17 @@ fi
 
 CONFIG='/var/www/html/phpunit.xml'
 
-echo "======================"
-echo "Running tests against: /web/modules/contrib/$1"
-echo "======================"
-
-vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1"
+if [ ! -z $3 ] && [ -f "web/modules/contrib/$1/tests/src/$2/$3" ]
+then
+  echo "============="
+  echo "Running test: /web/modules/contrib/$1/$2/$3"
+  echo "============="
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1/tests/src/$2/$3"
+else
+  echo "======================"
+  echo "Running tests against: /web/modules/contrib/$1"
+  echo "======================"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1"
+fi
 
 echo "-- When you are finished, run 'ddev cleanup' to remove test files."
