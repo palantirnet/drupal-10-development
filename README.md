@@ -162,7 +162,11 @@ This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/ru
 
 **Example:** `ddev test admin_toolbar`
 
+**Example:** `ddev test admin_toolbar Functional AdminToolbarAdminMenuTest`
+
 The `ddev test` command runs all tests defined by a module according to Drupal's testing standards.
+
+If you pass the type of test (`Functional, FuntionalJavascript, Kernel, Unit`) and a test class, only tests in that class will be run.
 
 ## Sample workflows
 
