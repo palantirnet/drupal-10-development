@@ -168,6 +168,10 @@ The `ddev test` command runs all tests defined by a module according to Drupal's
 
 If you pass the type of test (`Functional, FuntionalJavascript, Kernel, Unit`) and a test class, only tests in that class will be run.
 
+This command uses `testdox` output, which is easy to read but does not provide debugging output.
+
+You can run `testb` with the same parameters to get browser output.
+
 ## Sample workflows
 
 Let's assume you want to write a patch for the `workbench_tabs` module. Follow these steps:
