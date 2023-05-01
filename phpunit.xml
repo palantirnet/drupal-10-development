@@ -37,7 +37,7 @@
      SIMPLETEST_BASE_URL is an internal DDEV URL, you can set this to the
      external DDev URL so you can follow the links directly.
     -->
-    <env name="BROWSERTEST_OUTPUT_BASE_URL" value="https://d10.ddev.site"/>
+    <env name="BROWSERTEST_OUTPUT_BASE_URL" value="https://pubmod.ddev.site"/>
     <!-- To disable deprecation testing completely uncomment the next line. -->
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     <!-- Example for changing the driver class for mink tests MINK_DRIVER_CLASS value: 'Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver' -->

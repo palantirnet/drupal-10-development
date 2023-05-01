@@ -1,9 +1,9 @@
 {
-  "name": "palantirnet/drupal-10-development",
+  "name": "palantirnet/pubmod",
   "description": "A minimal project build for Drupal 10 module development.",
   "type": "project",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/palantirnet/drupal-10-development",
+  "homepage": "https://github.com/palantirnet/pubmod",
   "repositories": [
     {
       "type": "composer",
