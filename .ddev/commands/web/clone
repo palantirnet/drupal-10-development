@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Description: Checkout a module using git clone
-## Usage: clone MODULE_NAME [-b BRANCH_NAME | -t TAG_NAME] [-c]
-## Example: "ddev clone admin_toolbar" or "ddev clone admin_toolbar -b develop -c"
+## Usage: clone MODULE_NAME [-b BRANCH_NAME | -t TAG_NAME] [-c] [-o ORIGIN_PATH]
+## Example: ddev clone admin_toolbar\nddev clone my_module -b develop -o git@github.com:palantirnet
 
 help() {
   echo "Usage: clone MODULE_NAME [-b BRANCH_NAME | -t TAG_NAME] [-c]"
