@@ -6,3 +6,5 @@
 
 drush site:install standard --account-name=admin --account-pass=admin --site-name="Domain 10" -y
 drush en admin_toolbar admin_toolbar_tools config_inspector devel
+drush en domain
+drush gend example.local --count=5
