@@ -1,0 +1,49 @@
+#!/bin/bash
+
+## Description: Run tests on a specific module.
+## Usage: testb MODULE_NAME {TEST_TYPE} {TEST CLASS}
+## Example: "ddev testb admin_toolbar"
+## Example: "ddev testb admin_toolbar Functional AdminToolbarAdminMenuTest"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev test admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+# Ensure we have a files directory for test output.
+if [ ! -d "web/sites/simpletest/browser_output" ]
+then
+  # See https://linuxize.com/post/bash-wait/
+  if [ ! -d "web/sites/simpletest" ]
+  then
+    mkdir web/sites/simpletest &
+    PROCESS_ID=$!
+    wait $PROCESS_ID
+  fi
+  mkdir web/sites/simpletest/browser_output
+  echo "Created an output directory"
+fi
+
+CONFIG='/var/www/html/phpunit.xml'
+
+if [ ! -z $3 ] && [ -f "web/modules/contrib/$1/tests/src/$2/$3.php" ]
+then
+  echo "============="
+  echo "Running test: /web/modules/contrib/$1/$2/$3"
+  echo "============="
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1/tests/src/$2/$3.php"
+else
+  echo "======================"
+  echo "Running tests against: /web/modules/contrib/$1"
+  echo "======================"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1"
+fi
+
+echo "-- When you are finished, run 'ddev cleanup' to remove test files."
