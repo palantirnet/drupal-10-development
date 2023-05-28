@@ -6,5 +6,10 @@
 
 drush site:install standard --account-name=admin --account-pass=admin --site-name="Domain 10" -y
 drush en admin_toolbar admin_toolbar_tools config_inspector devel
-drush en domain
-drush gend example.local --count=5
+if [ ! -d "web/modules/contrib/domain" ]
+  then
+    echo "Domain is not installed, please run 'ddev clone domain -b 2.0.x'"
+  else
+    drush en domain
+    drush gend example.local --count=5
+fi
