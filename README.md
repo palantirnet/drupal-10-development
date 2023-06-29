@@ -96,6 +96,18 @@ Use the `-o` flag to specify a different origin than drupal.org. The argument is
 
 Note that this command will `delete` an existing copy of the module.
 
+### ddev compat
+
+**Command:** `ddev compat MODULE [-v VERSION]`
+
+**Example:** `ddev compat admin_toolbar`
+
+**Example:** `ddev compat admin_toolbar -v 7.4`
+
+The `compat` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
+
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
+
 ### ddev install
 
 **Command:** `ddev install`
@@ -109,18 +121,6 @@ Installs the default drupal site.
 **Example:** `ddev md admin_toolbar`
 
 The `md` command will run code reviews using PHPMD against the selected module.
-
-### ddev phpversion
-
-**Command:** `ddev phpversion MODULE [-v VERSION]`
-
-**Example:** `ddev phpversion admin_toolbar`
-
-**Example:** `ddev phpversion admin_toolbar -v 7.4`
-
-The `phpversion` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
-
-Use the `-v` flag to specify a PHP version to test. By default, the version is `8.1`.
 
 ### ddev rector
 
