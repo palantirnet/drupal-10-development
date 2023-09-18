@@ -26,14 +26,14 @@ echo "======================"
 echo "--------------"
 echo "Running PHPCBF"
 echo "--------------"
-vendor/bin/phpcbf web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n -p --extensions="php,module,inc,install,test,profile,theme,info,yml,css,js"
+vendor/bin/phpcbf web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -p --extensions="php,module,inc,install,test,profile,theme,info,yml,css,js"
 # find what is left to fix
 echo "-------------"
 echo "Running PHPCS"
 echo "-------------"
-vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -n -p --colors --extensions="php,module,inc,install,test,profile,theme,info,yml,css,js"
+vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -p --colors --extensions="php,module,inc,install,test,profile,theme,info,yml,css,js"
 # Run phpversion
-"$COMMAND_DIR"/phpversion $1
+"$COMMAND_DIR"/compat $1
 exit
 echo "-------------"
 echo "Running PHPMD"
