@@ -1,7 +1,7 @@
 #!/bin/bash
 
-## Description: Run PHPMD on a specific module.
-## Usage: eslint MODULE_NAME
+## Description: Run eslint on a specific module. Pass --fix to update code.
+## Usage: eslint MODULE_NAME [--flags]
 ## Example: "ddev eslint admin_toolbar"
 
 if [ $# -eq 0 ]
