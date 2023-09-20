@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## Description: Run PHPMD on a specific module.
+## Usage: eslint MODULE_NAME
+## Example: "ddev eslint admin_toolbar"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev md admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+echo "======================"
+echo "Running eslint against: /web/modules/contrib/$1"
+echo "======================"
