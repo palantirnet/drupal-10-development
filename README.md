@@ -108,11 +108,25 @@ The `compat` command will run PHPCS against the selected module using the `PHPCo
 
 Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
 
+### ddev eslint
+
+**Command:** `ddev eslint MODULE`
+
+**Example:** `ddev eslint admin_toolbar`
+
+**Example:** `ddev eslint admin_toolbar --fix`
+
+The `eslint` command will run core's `eslint` and JS `prettier` profiles against your code. By default, the command runs in report mode. You may pass flags to the command (such as `--fix`) as [documented by eslint](https://eslint.org/docs/latest/use/command-line-interface).
+
+This command will also install the node dependencies required for core development.
+
+This command is adapted from [ddev contrib](https://github.com/ddev/ddev-drupal-contrib/blob/main/commands/web/eslint).
+
 ### ddev install
 
 **Command:** `ddev install`
 
-Installs the default drupal site.
+Installs the default drupal site. This command will also install the node dependencies required for core development.
 
 ### ddev md
 
