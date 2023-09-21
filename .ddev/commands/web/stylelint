@@ -1,0 +1,30 @@
+#!/bin/bash
+
+## Description: Run stylelint on a specific module. Pass --fix to update code.
+## Usage: stylelint MODULE_NAME [--flags]
+## Example: "ddev stylelint admin_toolbar"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev md admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+# Adapted from https://github.com/ddev/ddev-drupal-contrib/blob/main/commands/web/eslint
+if [ ! -f $DDEV_DOCROOT/core/node_modules/.bin/stylelint ]; then
+  echo "stylelint is not available. Running 'ddev yarn --cwd $DDEV_DOCROOT/core install'"
+  yarn --cwd $DDEV_DOCROOT/core install
+fi
+
+echo "======================"
+echo "Running stylelint against: /web/modules/contrib/$1"
+echo "======================"
+# Change directory to the project root folder
+echo "$@"
+yarn --silent --cwd $DDEV_DOCROOT/core stylelint "$@" --formatter verbose --config ./.stylelintrc.json ../modules/contrib/$1/**/*.css
