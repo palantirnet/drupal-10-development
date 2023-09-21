@@ -174,6 +174,19 @@ The `stan` command will run code reviews using PHPStan against the selected modu
 
 This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/rule-levels). You can pass a preferred level (`0-9`, or `max`) using the `-l` flag.
 
+### ddev stylelint
+
+**Command:** `ddev stylelint MODULE`
+
+**Example:** `ddev stylelint admin_toolbar`
+
+**Example:** `ddev stylelint admin_toolbar --fix`
+
+The `stylelint` command will run core's `stylelint` CSS profiles against your code. By default, the command runs in report mode. You may pass flags to the command (such as `--fix`) as [documented by styelint](https://stylelint.io/user-guide/cli).
+
+This command will also install the node dependencies required for core development.
+
+
 ### ddev test
 
 **Command:** `ddev test MODULE`
