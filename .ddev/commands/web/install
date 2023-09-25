@@ -6,3 +6,9 @@
 
 drush site:install standard --account-name=admin --account-pass=admin --site-name="Drupal 10" -y
 drush en admin_toolbar admin_toolbar_tools config_inspector devel
+
+# Install eslint dependencies
+yarn --cwd $DDEV_DOCROOT/core install
+# Configure prettier
+test -e .prettierrc.json || ln -s $DDEV_DOCROOT/core/.prettierrc.json .
+test -e .prettierignore || echo '*.yml' > .prettierignore
