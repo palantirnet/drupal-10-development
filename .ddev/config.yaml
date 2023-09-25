@@ -1,4 +1,4 @@
-name: drupal-10-development
+name: domain
 type: drupal10
 docroot: web
 php_version: "8.2"
@@ -6,8 +6,8 @@ webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
 xdebug_enabled: false
-additional_hostnames: ["d10"]
-additional_fqdns: []
+additional_hostnames: []
+additional_fqdns: ["example.local", "one.example.local", "two.example.local", "three.example.local", "four.example.local", "five.example.local"]
 database:
   type: mariadb
   version: "10.4"
