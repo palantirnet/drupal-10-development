@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## Description: Run eslint on a specific module. Pass --fix to update code.
+## Usage: eslint MODULE_NAME [--flags]
+## Example: "ddev eslint admin_toolbar"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev md admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+# Adapted from https://github.com/ddev/ddev-drupal-contrib/blob/main/commands/web/eslint
+if [ ! -f $DDEV_DOCROOT/core/node_modules/.bin/eslint ]; then
+  echo "eslint is not available. Running 'ddev yarn --cwd $DDEV_DOCROOT/core install'"
+  yarn --cwd $DDEV_DOCROOT/core install
+fi
+
+# Configure prettier
+test -e .prettierrc.json || ln -s $DDEV_DOCROOT/core/.prettierrc.json .
+test -e .prettierignore || echo '*.yml' > .prettierignore
+
+echo "======================"
+echo "Running eslint against: /web/modules/contrib/$1"
+echo "======================"
+# Change directory to the project root folder
+cd "$DDEV_DOCROOT/modules/contrib/$1" || exit
+"$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core/node_modules/.bin/eslint" --no-error-on-unmatched-pattern --ignore-pattern="*.es6.js" --resolve-plugins-relative-to=$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core --ext=.js,.yml . "$@"

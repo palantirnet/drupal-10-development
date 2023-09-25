@@ -96,11 +96,37 @@ Use the `-o` flag to specify a different origin than drupal.org. The argument is
 
 Note that this command will `delete` an existing copy of the module.
 
+### ddev compat
+
+**Command:** `ddev compat MODULE [-v VERSION]`
+
+**Example:** `ddev compat admin_toolbar`
+
+**Example:** `ddev compat admin_toolbar -v 7.4`
+
+The `compat` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
+
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
+
+### ddev eslint
+
+**Command:** `ddev eslint MODULE`
+
+**Example:** `ddev eslint admin_toolbar`
+
+**Example:** `ddev eslint admin_toolbar --fix`
+
+The `eslint` command will run core's `eslint` and JS `prettier` profiles against your code. By default, the command runs in report mode. You may pass flags to the command (such as `--fix`) as [documented by eslint](https://eslint.org/docs/latest/use/command-line-interface).
+
+This command will also install the node dependencies required for core development.
+
+This command is adapted from [ddev contrib](https://github.com/ddev/ddev-drupal-contrib/blob/main/commands/web/eslint).
+
 ### ddev install
 
 **Command:** `ddev install`
 
-Installs the default drupal site.
+Installs the default drupal site. This command will also install the node dependencies required for core development.
 
 ### ddev md
 
@@ -109,18 +135,6 @@ Installs the default drupal site.
 **Example:** `ddev md admin_toolbar`
 
 The `md` command will run code reviews using PHPMD against the selected module.
-
-### ddev phpversion
-
-**Command:** `ddev phpversion MODULE [-v VERSION]`
-
-**Example:** `ddev phpversion admin_toolbar`
-
-**Example:** `ddev phpversion admin_toolbar -v 7.4`
-
-The `phpversion` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
-
-Use the `-v` flag to specify a PHP version to test. By default, the version is `8.1`.
 
 ### ddev rector
 
@@ -159,6 +173,19 @@ The `sniff` command will run code reviews using PHPCBF and PHPCS against the sel
 The `stan` command will run code reviews using PHPStan against the selected module.
 
 This command defaults to use [PHPStan level 2](https://phpstan.org/user-guide/rule-levels). You can pass a preferred level (`0-9`, or `max`) using the `-l` flag.
+
+### ddev stylelint
+
+**Command:** `ddev stylelint MODULE`
+
+**Example:** `ddev stylelint admin_toolbar`
+
+**Example:** `ddev stylelint admin_toolbar --fix`
+
+The `stylelint` command will run core's `stylelint` CSS profiles against your code. By default, the command runs in report mode. You may pass flags to the command (such as `--fix`) as [documented by styelint](https://stylelint.io/user-guide/cli).
+
+This command will also install the node dependencies required for core development.
+
 
 ### ddev test
 

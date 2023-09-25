@@ -29,6 +29,10 @@ node_modules
 package-lock.json
 npm-debug.log
 
+# Ignore symlinked eslint files
+.prettierignore
+.prettierrc.json
+
 # IDE
 .idea
 .DS_Store

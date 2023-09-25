@@ -1,7 +1,7 @@
 name: domain
 type: drupal10
 docroot: web
-php_version: "8.1"
+php_version: "8.2"
 webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
@@ -11,12 +11,10 @@ additional_fqdns: ["example.local", "one.example.local", "two.example.local", "t
 database:
   type: mariadb
   version: "10.4"
-nfs_mount_enabled: true
-mutagen_enabled: false
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
-nodejs_version: "16"
+nodejs_version: "18"
 
 # Key features of ddev's config.yaml:
 
