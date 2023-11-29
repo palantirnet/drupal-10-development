@@ -1,5 +1,5 @@
-#ddev-generated
-# Remove the line above if you don't want this file to be overwritten when you run
+#
+# Remove the line above (# ddev-generated) if you don't want this file to be overwritten when you run
 # ddev get ddev/ddev-selenium-standalone-chrome
 #
 # This file comes from https://github.com/ddev/ddev-selenium-standalone-chrome
@@ -7,14 +7,14 @@
 web_environment:
   - BROWSERTEST_OUTPUT_DIRECTORY=/tmp
   - BROWSERTEST_OUTPUT_BASE_URL=${DDEV_PRIMARY_URL}
-  - SIMPLETEST_BASE_URL=http://web
+  - SIMPLETEST_BASE_URL=http://example.local
   - SIMPLETEST_DB=mysql://db:db@db/db
   # Use disable-dev-shm-usage instead of setting shm_usage
   # https://developers.google.com/web/tools/puppeteer/troubleshooting#tips
   # The format of chromeOptions is defined at https://chromedriver.chromium.org/capabilities
   - MINK_DRIVER_ARGS_WEBDRIVER=[\"chrome\", {\"browserName\":\"chrome\",\"chromeOptions\":{\"w3c\":false,\"args\":[\"--disable-gpu\",\"--headless\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://selenium-chrome:4444/wd/hub\"]
   # Nightwatch
-  - DRUPAL_TEST_BASE_URL=http://web
+  - DRUPAL_TEST_BASE_URL=http://example.local
   - DRUPAL_TEST_DB_URL=mysql://db:db@db/db
   - DRUPAL_TEST_WEBDRIVER_HOSTNAME=selenium-chrome
   - DRUPAL_TEST_WEBDRIVER_PORT=4444
