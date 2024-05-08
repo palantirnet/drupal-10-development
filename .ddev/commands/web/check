@@ -31,7 +31,7 @@ vendor/bin/phpcbf web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -p -
 echo "-------------"
 echo "Running PHPCS"
 echo "-------------"
-vendor/bin/phpcs web/modules/contrib/$1 --standard="Drupal,DrupalPractice" -p --colors --extensions="php,module,inc,install,test,profile,theme,info,yml"
+vendor/bin/phpcs web/modules/contrib/$1
 # Run phpversion
 "$COMMAND_DIR"/compat $1
 exit
