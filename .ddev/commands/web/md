@@ -19,4 +19,4 @@ fi
 echo "======================"
 echo "Running PHPMD against: /web/modules/contrib/$1"
 echo "======================"
-vendor/bin/phpmd web/modules/contrib/$1 text phpmd.xml
+vendor/bin/phpmd web/modules/contrib/$1 text /var/www/html/phpmd.xml "php,inc,module,theme,profile,install,test" -vvv
