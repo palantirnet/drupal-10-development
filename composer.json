@@ -14,9 +14,9 @@
     "composer/installers": "^2.0",
     "drupal/admin_toolbar": "^3.4",
     "drupal/config_inspector": "^2.1",
-    "drupal/core-composer-scaffold": "^10.2",
-    "drupal/core-project-message": "^10.2",
-    "drupal/core-recommended": "^10.2",
+    "drupal/core-composer-scaffold": "10.3.0-beta1@beta",
+    "drupal/core-project-message": "10.3.0-beta1@beta",
+    "drupal/core-recommended": "10.3.0-beta1@beta",
     "drupal/devel": "^5.1",
     "drupal/examples": "^4.0",
     "drush/drush": "^12.4",
@@ -45,7 +45,7 @@
   "conflict": {
     "drupal/drupal": "*"
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "allow-plugins": {
