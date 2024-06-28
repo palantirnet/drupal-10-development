@@ -7,7 +7,7 @@
 help() {
   echo "Usage: compat MODULE_NAME [-v VERSION]"
   echo "Options:"
-  echo "  -v    Specify a PHP version to test against. Defaults to PHP 8.2."
+  echo "  -v    Specify a PHP version to test against. Defaults to PHP 8.3."
   exit
 }
 
@@ -41,7 +41,7 @@ do
   esac
 done
 
-PHP_VERSION="8.2"
+PHP_VERSION="8.3"
 
 while getopts $FLAGS opt
 do
