@@ -56,6 +56,12 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "zaporylie/composer-drupal-optimizations": true
     },
+    "platform": {
+      "php": "8.3"
+    },
+    "preferred-install": {
+      "*": "dist"
+    },
     "sort-packages": true
   },
   "extra": {
