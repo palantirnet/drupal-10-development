@@ -38,12 +38,12 @@ then
   echo "============="
   echo "Running test: /web/modules/contrib/$1/$2/$3"
   echo "============="
-  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1/tests/src/$2/$3.php"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1/tests/src/$2/$3.php" -v
 else
   echo "======================"
   echo "Running tests against: /web/modules/contrib/$1"
   echo "======================"
-  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1" -v
 fi
 
 echo "-- When you are finished, run 'ddev cleanup' to remove test files."
