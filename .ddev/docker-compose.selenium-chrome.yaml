@@ -1,8 +1,8 @@
 #ddev-generated
 # Remove the line above if you don't want this file to be overwritten when you run
-# ddev get drud/ddev-selenium-standalone-chrome
+# ddev get ddev/ddev-selenium-standalone-chrome
 #
-# This file comes from https://github.com/drud/ddev-selenium-standalone-chrome
+# This file comes from https://github.com/ddev/ddev-selenium-standalone-chrome
 #
 version: '3.6'
 services:
@@ -19,9 +19,10 @@ services:
       - HTTP_EXPOSE=7910:7900
     external_links:
       - ddev-router:${DDEV_SITENAME}.${DDEV_TLD}
-      #ports:
-      # VNC access for a traditional VNC client like macOS "Screen Sharing".
-      # - "5900:5900"
+    # To enable VNC access for traditional VNC clients like macOS "Screen Sharing",
+    # uncomment the following two lines.
+    #ports:
+    #  - "5900:5900"
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
