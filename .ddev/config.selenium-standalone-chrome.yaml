@@ -1,4 +1,4 @@
-#
+#ddev-generated
 # Remove the line above if you don't want this file to be overwritten when you run
 # ddev get ddev/ddev-selenium-standalone-chrome
 #
@@ -7,7 +7,7 @@
 web_environment:
   - BROWSERTEST_OUTPUT_DIRECTORY=/tmp
   - BROWSERTEST_OUTPUT_BASE_URL=${DDEV_PRIMARY_URL}
-  - SIMPLETEST_BASE_URL=http://example.local
+  - SIMPLETEST_BASE_URL=http://web
   - SIMPLETEST_DB=mysql://db:db@db/db
   # Use disable-dev-shm-usage instead of setting shm_usage
   # https://developers.google.com/web/tools/puppeteer/troubleshooting#tips
