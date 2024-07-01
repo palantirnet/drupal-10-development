@@ -1,0 +1,20 @@
+#!/bin/bash
+
+## Description: Run cspell on a specific module.
+## Usage: cspell MODULE_NAME
+## Example: "ddev cspell admin_toolbar"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev check admin_toolbar'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib."
+  exit
+fi
+
+cd web/core
+npx cspell --show-suggestions --show-context --no-progress "../modules/contrib/$1/**"
