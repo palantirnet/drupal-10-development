@@ -16,5 +16,18 @@ then
   exit
 fi
 
-cd web/core
+cp /var/www/html/web/core/misc/cspell/drupal-dictionary.txt /var/www/html/web/core/misc/cspell/drupal-dictionary-bak.txt
+
+# Append / replace core file web/core/misc/cspell/drupal-dictionary.txt
+if [ -f "web/modules/contrib/$1/.cspell-project-words.txt" ]
+then
+  echo "Copying cspell file"
+  paste -d "\n" /var/www/html/web/core/misc/cspell/drupal-dictionary.txt /var/www/html/web/modules/contrib/$1/.cspell-project-words.txt > /var/www/html/web/core/misc/cspell/drupal-dictionary-2.txt
+  cp /var/www/html/web/core/misc/cspell/drupal-dictionary-2.txt /var/www/html/web/core/misc/cspell/drupal-dictionary.txt
+fi
+
+cd /var/www/html/web/core
+
 npx cspell --show-suggestions --show-context --no-progress "../modules/contrib/$1/**"
+
+mv /var/www/html/web/core/misc/cspell/drupal-dictionary-bak.txt /var/www/html/web/core/misc/cspell/drupal-dictionary.txt
