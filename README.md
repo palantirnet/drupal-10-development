@@ -96,6 +96,14 @@ Use the `-o` flag to specify a different origin than drupal.org. The argument is
 
 Note that this command will `delete` an existing copy of the module.
 
+### ddev cspell
+
+**Command:** `ddev cspell MODULE`
+
+**Example:** `ddev cspell admin_toolbar`
+
+The `cspell` command runs [CSpell](https://cspell.org/) using the core configuration. Any custom works defined in a module's `.cspell-project-words.txt` file will be added to the ruleset during the check and removed after it completes.
+
 ### ddev compat
 
 **Command:** `ddev compat MODULE [-v VERSION]`
