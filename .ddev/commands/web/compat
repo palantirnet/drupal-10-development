@@ -41,7 +41,7 @@ do
   esac
 done
 
-PHP_VERSION="8.2"
+PHP_VERSION="8.3"
 
 while getopts $FLAGS opt
 do
