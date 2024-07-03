@@ -3,7 +3,7 @@
 # ddev get ddev/ddev-selenium-standalone-chrome
 #
 # This file comes from https://github.com/ddev/ddev-selenium-standalone-chrome
-#
+# To update this file, restore #ddev-generated.
 web_environment:
   - BROWSERTEST_OUTPUT_DIRECTORY=/tmp
   - BROWSERTEST_OUTPUT_BASE_URL=${DDEV_PRIMARY_URL}

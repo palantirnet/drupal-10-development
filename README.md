@@ -35,6 +35,10 @@ If using NFS to speed up the container, see these steps.
 * `ddev debug nfsmount` (optional)
   * See the [macOS NFS Setup section](https://ddev.readthedocs.io/en/latest/users/install/performance/#nfs) of the DDEV documentation.
 
+#### Note on domains
+
+The test runner is having difficulty with the subdomains and chrome. We fixed this by using "web" as the testing default and enabling one.web, etc. in the ddev config.
+
 
 ### Drush
 
