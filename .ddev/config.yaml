@@ -19,6 +19,12 @@ additional_fqdns:
   - "three.web"
   - "four.web"
   - "five.web"
+  - "example.web"
+  - "one.example.web"
+  - "two.example.web"
+  - "three.example.web"
+  - "four.example.web"
+  - "five.example.web"
 database:
   type: mariadb
   version: "10.4"
