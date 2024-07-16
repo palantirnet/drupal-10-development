@@ -3,7 +3,7 @@ includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
 	- vendor/mglaman/phpstan-drupal/extension.neon
-  - vendor/mglaman/phpstan-drupal/rules.neon
+	- vendor/mglaman/phpstan-drupal/rules.neon
 parameters:
   level: 2
   reportUnmatchedIgnoredErrors: false
