@@ -33,6 +33,7 @@
     "phpspec/prophecy": "^1.19",
     "phpspec/prophecy-phpunit": "^2.2",
     "phpunit/phpunit": "^10.5",
+    "symfony/phpunit-bridge": "^7.1",
     "zaporylie/composer-drupal-optimizations": "^1.2"
   },
   "conflict": {
