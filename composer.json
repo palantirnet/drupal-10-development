@@ -30,6 +30,7 @@
     "mglaman/drupal-check": "^1.5",
     "palantirnet/drupal-rector": "^0.20.3",
     "phpmd/phpmd": "^2.15",
+    "phpunit/phpunit": "^10.5",
     "zaporylie/composer-drupal-optimizations": "^1.2"
   },
   "conflict": {
