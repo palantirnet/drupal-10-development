@@ -18,6 +18,7 @@
     "drupal/core-project-message": "^11.0",
     "drupal/core-recommended": "^11.0",
     "drupal/devel": "^5.3",
+    "drupal/examples": "^4.0",
     "drush/drush": "^13.2",
     "kint-php/kint": "^5.1"
   },
