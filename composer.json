@@ -22,6 +22,10 @@
     "drush/drush": "^13.2",
     "kint-php/kint": "^5.1"
   },
+  "require-dev": {
+     "behat/mink": "^1.11",
+     "behat/mink-selenium2-driver": "^1.7"
+  },
   "conflict": {
     "drupal/drupal": "*"
   },
@@ -100,9 +104,5 @@
         "      composer remove drupal/core-project-message"
       ]
     }
-  },
-  "require-dev": {
-    "behat/mink": "^1.11",
-    "behat/mink-selenium2-driver": "^1.7"
   }
 }
