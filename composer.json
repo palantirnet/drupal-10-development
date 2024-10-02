@@ -26,7 +26,8 @@
     "behat/mink": "^1.11",
     "behat/mink-selenium2-driver": "^1.7",
     "drupal/coder": "^8.3",
-    "friends-of-behat/mink-browserkit-driver": "^1.6"
+    "friends-of-behat/mink-browserkit-driver": "^1.6",
+    "mglaman/drupal-check": "^1.5"
   },
   "conflict": {
     "drupal/drupal": "*"
