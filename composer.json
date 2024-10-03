@@ -94,6 +94,9 @@
       ],
       "web/themes/custom/{$name}": [
         "type:drupal-custom-theme"
+      ],
+      "web/recipes/contrib/{$name}": [
+        "type:drupal-recipe"
       ]
     },
     "enable-patching": true,
