@@ -12,6 +12,7 @@
   ],
   "require": {
     "composer/installers": "^2.0",
+    "cweagans/composer-patches": "^1.7",
     "drupal/admin_toolbar": "^3.5",
     "drupal/config_inspector": "^2.1",
     "drupal/core-composer-scaffold": "^11.0",
@@ -49,7 +50,8 @@
       "drupal/core-project-message": true,
       "phpstan/extension-installer": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "zaporylie/composer-drupal-optimizations": true
+      "zaporylie/composer-drupal-optimizations": true,
+      "cweagans/composer-patches": true
     },
     "platform": {
       "php": "8.3"
