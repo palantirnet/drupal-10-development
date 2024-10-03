@@ -96,6 +96,12 @@
         "type:drupal-custom-theme"
       ]
     },
+    "enable-patching": true,
+    "patches-file": "composer.patches.json",
+    "composer-exit-on-patch-failure": true,
+    "patchLevel": {
+      "drupal/core": "-p2"
+    },
     "drupal-core-project-message": {
       "include-keys": [
         "homepage",
