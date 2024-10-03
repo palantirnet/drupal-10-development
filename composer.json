@@ -21,7 +21,6 @@
     "drupal/devel": "^5.3",
     "drupal/examples": "^4.0",
     "drush/drush": "^13.2",
-    "kanopi/gin-admin-experience": "^1.0@beta",
     "kint-php/kint": "^5.1"
   },
   "require-dev": {
