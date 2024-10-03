@@ -4,6 +4,7 @@ vendor
 web/core
 web/libraries
 web/modules/contrib
+web/recipes/contrib
 web/themes/contrib
 web/profiles/contrib
 
