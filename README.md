@@ -158,7 +158,7 @@ The `rector` command will run Drupal Rector updates against the selected module,
 
 **Command:** `ddev remove MODULE`
 
-**Example:** `ddev rector admin_toolbar`
+**Example:** `ddev remove admin_toolbar`
 
 The `ddev remove` command will uninstall a module and delete it from the `web/modules/contrib` directory.
 
