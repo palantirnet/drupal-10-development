@@ -96,6 +96,14 @@ Use the `-o` flag to specify a different origin than drupal.org. The argument is
 
 Note that this command will `delete` an existing copy of the module.
 
+### ddev cspell
+
+**Command:** `ddev cspell MODULE`
+
+**Example:** `ddev cspell admin_toolbar`
+
+The `cspell` command runs [CSpell](https://cspell.org/) using the core configuration. Any custom works defined in a module's `.cspell-project-words.txt` file will be added to the ruleset during the check and removed after it completes.
+
 ### ddev compat
 
 **Command:** `ddev compat MODULE [-v VERSION]`
@@ -106,7 +114,7 @@ Note that this command will `delete` an existing copy of the module.
 
 The `compat` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
 
-Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.3`.
 
 ### ddev eslint
 
@@ -150,7 +158,7 @@ The `rector` command will run Drupal Rector updates against the selected module,
 
 **Command:** `ddev remove MODULE`
 
-**Example:** `ddev rector admin_toolbar`
+**Example:** `ddev remove admin_toolbar`
 
 The `ddev remove` command will uninstall a module and delete it from the `web/modules/contrib` directory.
 
