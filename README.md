@@ -114,7 +114,7 @@ The `cspell` command runs [CSpell](https://cspell.org/) using the core configura
 
 The `compat` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
 
-Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.3`.
 
 ### ddev eslint
 
