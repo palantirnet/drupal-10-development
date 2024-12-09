@@ -12,34 +12,35 @@
   ],
   "require": {
     "composer/installers": "^2.0",
+    "cweagans/composer-patches": "^1.7",
     "drupal/admin_toolbar": "^3.5",
     "drupal/config_inspector": "^2.1",
-    "drupal/core-composer-scaffold": "11.0.9",
-    "drupal/core-project-message": "11.0.9",
-    "drupal/core-recommended": "11.0.9",
+    "drupal/core-composer-scaffold": "^11.0",
+    "drupal/core-project-message": "^11.0",
+    "drupal/core-recommended": "^11.0",
     "drupal/devel": "^5.3",
     "drupal/examples": "^4.0",
-    "drush/drush": "^13",
-    "kint-php/kint": "^5.0"
+    "drush/drush": "^13.2",
+    "kint-php/kint": "^5.1"
   },
   "require-dev": {
-    "behat/mink": "^1.10",
-    "behat/mink-selenium2-driver": "^1.6",
+    "behat/mink": "^1.11",
+    "behat/mink-selenium2-driver": "^1.7",
     "drupal/coder": "^8.3",
     "friends-of-behat/mink-browserkit-driver": "^1.6",
     "mglaman/drupal-check": "^1.5",
     "mikey179/vfsstream": "^1.6",
-    "palantirnet/drupal-rector": "^0.15.0",
     "phpcompatibility/php-compatibility": "^9.3",
-    "phpmd/phpmd": "^2.13",
-    "phpspec/prophecy": "^1.17",
     "phpspec/prophecy-phpunit": "^2.3",
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-deprecation-rules": "^1.1",
     "phpstan/phpstan-strict-rules": "^1.5",
     "phpunit/phpunit": "^10.5",
     "squizlabs/php_codesniffer": "^3.7",
-    "symfony/phpunit-bridge": "^6.3",
+    "palantirnet/drupal-rector": "^0.20.3",
+    "phpmd/phpmd": "^2.15",
+    "phpspec/prophecy": "^1.19",
+    "symfony/phpunit-bridge": "^7.1",
     "zaporylie/composer-drupal-optimizations": "^1.2"
   },
   "conflict": {
@@ -54,7 +55,8 @@
       "drupal/core-project-message": true,
       "phpstan/extension-installer": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "zaporylie/composer-drupal-optimizations": true
+      "zaporylie/composer-drupal-optimizations": true,
+      "cweagans/composer-patches": true
     },
     "platform": {
       "php": "8.3"
@@ -98,6 +100,12 @@
       "web/themes/custom/{$name}": [
         "type:drupal-custom-theme"
       ]
+    },
+    "enable-patching": true,
+    "patches-file": "composer.patches.json",
+    "composer-exit-on-patch-failure": true,
+    "patchLevel": {
+      "drupal/core": "-p2"
     },
     "drupal-core-project-message": {
       "include-keys": [

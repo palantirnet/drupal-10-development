@@ -3,7 +3,7 @@
 ## Description: Run tests on a specific module.
 ## Usage: testb MODULE_NAME {TEST_TYPE} {TEST CLASS}
 ## Example: "ddev testb admin_toolbar"
-## Example: "ddev testb admin_toolbar Functional AdminToolbarAdminMenuTest"
+## Example: "ddev testb admin_toolbar AdminToolbarAdminMenuTest"
 
 if [ $# -eq 0 ]
 then
@@ -32,13 +32,14 @@ then
 fi
 
 CONFIG='/var/www/html/phpunit.xml'
+TEST_FILE=`find -type f -name $2.php`
 
-if [ ! -z $3 ] && [ -f "web/modules/contrib/$1/tests/src/$2/$3.php" ]
+if [ ! -z $2 ] && [ ! -z $TEST_FILE ]
 then
   echo "============="
-  echo "Running test: /web/modules/contrib/$1/$2/$3"
+  echo "Running test: $TEST_FILE"
   echo "============="
-  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/$1/tests/src/$2/$3.php"
+  vendor/bin/phpunit -c "$CONFIG" "$TEST_FILE"
 else
   echo "======================"
   echo "Running tests against: /web/modules/contrib/$1"
