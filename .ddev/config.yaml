@@ -16,6 +16,7 @@ use_dns_when_possible: true
 composer_version: "2"
 nodejs_version: "22"
 corepack_enable: true
+webimage_extra_packages: ['poppler-utils']
 web_environment:
     - SIMPLETEST_DB=mysql://db:db@db/db
     - DRUPAL_NIGHTWATCH_OUTPUT=reports/nightwatch
