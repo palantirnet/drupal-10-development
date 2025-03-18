@@ -1,0 +1,75 @@
+#!/bin/bash
+
+## Description: Converts a PDF file to HTML
+## Usage: pdftohtml <pdf-file>
+## Example: "ddev pdftohtml my.pdf"
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: pdftohtml <pdf-file>"
+  exit 1
+fi
+DIR="pdfs/${1%.*}"
+
+if [ ! -d "$DIR" ]; then
+  mkdir -p "$DIR"
+  else
+    rm -rf "$DIR"/*
+fi
+
+if [ -f "$DIR/OCR_FAILED" ]; then
+  rm "$DIR/OCR_FAILED"
+fi
+
+# pdftohtml options:
+  # -f <int>              : first page to convert
+  # -l <int>              : last page to convert
+  # -q                    : don't print any messages or errors
+  # -h                    : print usage information
+  # -?                    : print usage information
+  # -help                 : print usage information
+  # -p                    : exchange .pdf links by .html
+  # -c                    : generate complex document
+  # -s                    : generate single document that includes all pages
+  # -dataurls             : use data URLs instead of external images in HTML
+  # -i                    : ignore images
+  # -noframes             : generate no frames
+  # -stdout               : use standard output
+  # -zoom <fp>            : zoom the pdf document (default 1.5)
+  # -xml                  : output for XML post-processing
+  # -noroundcoord         : do not round coordinates (with XML output only)
+  # -hidden               : output hidden text
+  # -nomerge              : do not merge paragraphs
+  # -enc <string>         : output text encoding name
+  # -fmt <string>         : image file format for Splash output (png or jpg)
+  # -v                    : print copyright and version info
+  # -opw <string>         : owner password (for encrypted files)
+  # -upw <string>         : user password (for encrypted files)
+  # -nodrm                : override document DRM settings
+  # -wbt <fp>             : word break threshold (default 10 percent)
+  # -fontfullname         : outputs font full name
+
+### The command below converts the PDF file to HTML.
+ pdftohtml -dataurls -s -c -zoom 2 -fmt png pdfs/"$1" "$DIR/${1%.*}.html"
+# pdftohtml -c -xml -zoom 2 -fmt png "pdfs/$1" "$DIR.xml"
+
+MISSING=1
+# Find all files matching the pattern page*.html
+#html_files=$(find "$DIR" -type f -name 'page*.html')
+
+#for html_file in $html_files; do
+#  base_name=$(basename "$html_file" .html)
+#  png_file="$DIR/$base_name.png"
+#  if [ ! -f "$png_file" ]; then
+#    echo "Missing PNG for $html_file"
+#    MISSING=1
+#  fi
+#done
+
+if [ $MISSING -eq 0 ]; then
+  echo "All generated HTML files have corresponding PNG files. This means that OCR scanning failed."
+  echo "This PDF is not a good candidate for automated conversion to HTML."
+  echo "This PDF should be converted to HTML manually."
+  touch "$DIR/OCR_FAILED"
+else
+  echo "This PDF can be converted to HTML."
+fi
