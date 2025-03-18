@@ -49,7 +49,8 @@ fi
   # -fontfullname         : outputs font full name
 
 ### The command below converts the PDF file to HTML.
- pdftohtml -dataurls -s -c -zoom 2 -fmt png pdfs/"$1" "$DIR/${1%.*}.html"
+ pdfimages -png -p pdfs/"$1" "$DIR/${1%.*}"
+ pdftohtml -dataurls -c -zoom 2 -fmt png pdfs/"$1" "$DIR/${1%.*}.html"
 # pdftohtml -c -xml -zoom 2 -fmt png "pdfs/$1" "$DIR.xml"
 
 MISSING=1

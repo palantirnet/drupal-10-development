@@ -37,3 +37,6 @@ npm-debug.log
 
 # Ignore DDEV unless explcitly added
 .ddev
+
+# Ignore PDF tests
+pdfs/*
