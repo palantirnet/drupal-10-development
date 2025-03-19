@@ -50,7 +50,7 @@ fi
 
 ### The command below converts the PDF file to HTML.
  pdfimages -png -p pdfs/"$1" "$DIR/${1%.*}"
- pdftohtml -dataurls -c -zoom 2 -fmt png pdfs/"$1" "$DIR/${1%.*}.html"
+ pdftohtml -dataurls -c -zoom 1.5 -fmt png pdfs/"$1" "$DIR/${1%.*}.html"
 # pdftohtml -c -xml -zoom 2 -fmt png "pdfs/$1" "$DIR.xml"
 
 MISSING=1
@@ -66,11 +66,11 @@ MISSING=1
 #  fi
 #done
 
-if [ $MISSING -eq 0 ]; then
-  echo "All generated HTML files have corresponding PNG files. This means that OCR scanning failed."
-  echo "This PDF is not a good candidate for automated conversion to HTML."
-  echo "This PDF should be converted to HTML manually."
-  touch "$DIR/OCR_FAILED"
-else
-  echo "This PDF can be converted to HTML."
-fi
+#if [ $MISSING -eq 0 ]; then
+#  echo "All generated HTML files have corresponding PNG files. This means that OCR scanning failed."
+#  echo "This PDF is not a good candidate for automated conversion to HTML."
+#  echo "This PDF should be converted to HTML manually."
+#  touch "$DIR/OCR_FAILED"
+#else
+#  echo "This PDF can be converted to HTML."
+#fi
