@@ -20,6 +20,7 @@
     "drupal/core-recommended": "^11.0",
     "drupal/devel": "^5.3",
     "drupal/examples": "^4.0",
+    "drupal/plus_suite": "^0.0.20",
     "drush/drush": "^13.2",
     "kint-php/kint": "^5.1"
   },

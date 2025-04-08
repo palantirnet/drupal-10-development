@@ -6,6 +6,7 @@ web/libraries
 web/modules/contrib
 web/themes/contrib
 web/profiles/contrib
+recipes
 
 # Ignore Drupal files
 web/sites/*/files

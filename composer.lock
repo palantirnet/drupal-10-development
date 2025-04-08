@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13ccb00b7c1ed01c507aaf0561dd19ff",
+    "content-hash": "24d26bbc436b664a4cffbf999fa505c9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1975,6 +1975,66 @@
             }
         },
         {
+            "name": "drupal/edit_plus",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/edit_plus.git",
+                "reference": "2.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/edit_plus-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "2812fb71af92a71736d59120d687138e5c2f91b8"
+            },
+            "require": {
+                "drupal/core": "^11",
+                "drupal/field_sample_value": "^1.0",
+                "drupal/navigation_plus": "^2.0",
+                "drupal/twig_events": "^1.0"
+            },
+            "require-dev": {
+                "drupal/edit_plus_lb-edit_plus_lb": "*",
+                "drupal/field_sample_value": "*",
+                "drupal/lb_plus": "*",
+                "drupal/lb_plus_edit_plus-lb_plus_edit_plus": "*",
+                "drupal/navigation_plus": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.4",
+                    "datestamp": "1743544453",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Bozeman",
+                    "homepage": "https://www.drupal.org/u/tim-bozeman",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/3419879/committers"
+                }
+            ],
+            "description": "Inline editing",
+            "homepage": "https://drupal.org/project/edit_plus",
+            "support": {
+                "source": "https://cgit.drupalcode.org/edit_plus",
+                "issues": "https://drupal.org/project/issues/edit_plus"
+            }
+        },
+        {
             "name": "drupal/examples",
             "version": "4.0.4",
             "source": {
@@ -2098,6 +2158,54 @@
             }
         },
         {
+            "name": "drupal/field_sample_value",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/field_sample_value.git",
+                "reference": "1.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/field_sample_value-1.0.4.zip",
+                "reference": "1.0.4",
+                "shasum": "48fc1a2881b7fd619acfb1145aeeccb524b54ea9"
+            },
+            "require": {
+                "drupal/core": "^9.5 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.4",
+                    "datestamp": "1741295398",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "amateescu",
+                    "homepage": "https://www.drupal.org/user/729614"
+                },
+                {
+                    "name": "tim bozeman",
+                    "homepage": "https://www.drupal.org/user/2241356"
+                }
+            ],
+            "description": "Provides a way to configure sample values for fields.",
+            "homepage": "https://www.drupal.org/project/field_sample_value",
+            "support": {
+                "source": "https://git.drupalcode.org/project/field_sample_value"
+            }
+        },
+        {
             "name": "drupal/hal",
             "version": "2.0.4",
             "source": {
@@ -2149,6 +2257,217 @@
             "homepage": "https://www.drupal.org/project/hal",
             "support": {
                 "source": "https://git.drupalcode.org/project/hal"
+            }
+        },
+        {
+            "name": "drupal/lb_plus",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/lb_plus.git",
+                "reference": "3.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/lb_plus-3.2.0.zip",
+                "reference": "3.2.0",
+                "shasum": "1fd22f7d31fd031168e419ab8d071417322f8ae2"
+            },
+            "require": {
+                "drupal/core": "^11",
+                "drupal/navigation_plus": "^2.0"
+            },
+            "require-dev": {
+                "drupal/edit_plus": "*",
+                "drupal/edit_plus_lb-edit_plus_lb": "*",
+                "drupal/field_sample_value": "*",
+                "drupal/lb_block_decorator": "*",
+                "drupal/lb_plus_edit_plus-lb_plus_edit_plus": "*",
+                "drupal/navigation_plus": "*",
+                "drupal/section_library": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.2.0",
+                    "datestamp": "1743626699",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Bozeman",
+                    "homepage": "https://www.drupal.org/u/tim-bozeman",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/3419879/committers"
+                },
+                {
+                    "name": "plach",
+                    "homepage": "https://www.drupal.org/user/183211"
+                },
+                {
+                    "name": "tim bozeman",
+                    "homepage": "https://www.drupal.org/user/2241356"
+                }
+            ],
+            "description": "A drop in replacement UI for Layout Builder",
+            "homepage": "https://drupal.org/project/lb_plus",
+            "support": {
+                "source": "https://cgit.drupalcode.org/lb_plus",
+                "issues": "https://drupal.org/project/issues/lb_plus"
+            }
+        },
+        {
+            "name": "drupal/navigation_plus",
+            "version": "2.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/navigation_plus.git",
+                "reference": "2.0.12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/navigation_plus-2.0.12.zip",
+                "reference": "2.0.12",
+                "shasum": "d359374ec9b47525daace3fad1df9dfca38b6801"
+            },
+            "require": {
+                "drupal/core": "^11",
+                "drupal/twig_events": "^1.0"
+            },
+            "require-dev": {
+                "drupal/entity_workflow": "*"
+            },
+            "suggest": {
+                "drupal/edit_plus": "Navigation+ adds a Photoshop like toolbar for in place editing. The Edit+ tool provides radical inline editing!",
+                "drupal/lb_plus": "Navigation+ adds a Photoshop like toolbar for in place editing. The Layout Builder+ tool is a drop in replacement for the Layout Builder UI."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.12",
+                    "datestamp": "1744049907",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Bozeman",
+                    "homepage": "https://www.drupal.org/u/tim-bozeman",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/3427190/committers"
+                }
+            ],
+            "description": "A unified UI for a variety of page building tools.",
+            "homepage": "https://drupal.org/project/navigation_plus",
+            "support": {
+                "source": "https://cgit.drupalcode.org/navigation_plus",
+                "issues": "https://drupal.org/project/issues/navigation_plus"
+            }
+        },
+        {
+            "name": "drupal/plus_suite",
+            "version": "0.0.20",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/plus_suite.git",
+                "reference": "ea2ee6d722181c5c6992bab9922466e97c9545d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fplus_suite/repository/archive.zip?sha=ea2ee6d722181c5c6992bab9922466e97c9545d3",
+                "reference": "ea2ee6d722181c5c6992bab9922466e97c9545d3",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/core": ">=10.4",
+                "drupal/edit_plus": "^2.0",
+                "drupal/field_sample_value": "^1.0",
+                "drupal/lb_plus": "^3.2",
+                "drupal/navigation_plus": "^2.0",
+                "drupal/twig_events": "^1.0"
+            },
+            "type": "drupal-recipe",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Bozeman",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Installs and configures the Plus Suite of page-building modules.",
+            "homepage": "https://www.drupal.org/project/plus_suite",
+            "support": {
+                "issues": "https://www.drupal.org/project/issues/plus_suite",
+                "source": "http://cgit.drupalcode.org/plus_suite"
+            },
+            "time": "2025-04-02T16:48:46+00:00"
+        },
+        {
+            "name": "drupal/twig_events",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/twig_events.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/twig_events-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "66f8031f2d2f90102678faf42e8b7e71baf63fe8"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1740176150",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "tim bozeman",
+                    "homepage": "https://www.drupal.org/user/2241356"
+                }
+            ],
+            "description": "A wrapper for the twig engine to dispatch events at key points.",
+            "homepage": "https://www.drupal.org/project/twig_events",
+            "support": {
+                "source": "https://git.drupalcode.org/project/twig_events"
             }
         },
         {
