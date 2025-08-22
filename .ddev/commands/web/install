@@ -6,7 +6,7 @@
 
 drush site:install standard --account-name=admin --account-pass=admin --site-name="Drupal 10" -y
 drush theme:enable gin
-drush en admin_toolbar admin_toolbar_tools config_inspector devel
+drush en admin_toolbar admin_toolbar_tools config_inspector devel gin_toolbar
 drush config:set system.theme admin gin -y
 drush config:set gin.settings classic_toolbar horizontal -y
 # Install eslint dependencies
