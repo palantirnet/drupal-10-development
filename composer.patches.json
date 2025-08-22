@@ -1,0 +1,7 @@
+{
+  "patches": {
+    "drupal/core": {
+      "Recipes project patches (https://www.drupal.org/project/distributions_recipes)": "https://git.drupalcode.org/project/distributions_recipes/-/raw/patch/recipe-11.x.patch"
+    }
+  }
+}
