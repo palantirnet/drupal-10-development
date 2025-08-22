@@ -5,8 +5,10 @@
 ## Example: "ddev install"
 
 drush site:install standard --account-name=admin --account-pass=admin --site-name="Drupal 10" -y
+drush theme:enable gin
 drush en admin_toolbar admin_toolbar_tools config_inspector devel
-
+drush config:set system.theme admin gin -y
+drush config:set gin.settings classic_toolbar horizontal -y
 # Install eslint dependencies
 # The "--cwd" argument doesn't work with Yarn 4.4, because the global version
 # is returned as 1.22.22 when Yarn starts, before switching directories.
