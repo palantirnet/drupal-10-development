@@ -1,6 +1,6 @@
 {
   "name": "palantirnet/drupal-10-development",
-  "description": "A minimal project build for Drupal 10 module development.",
+  "description": "A minimal project build for Drupal 11 module development.",
   "type": "project",
   "license": "GPL-2.0-or-later",
   "homepage": "https://github.com/palantirnet/drupal-10-development",

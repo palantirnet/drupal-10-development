@@ -4,7 +4,7 @@
 ## Usage: install
 ## Example: "ddev install"
 
-drush site:install standard --account-name=admin --account-pass=admin --site-name="Drupal 10" -y
+drush site:install standard --account-name=admin --account-pass=admin --site-name="Drupal 11 Development" -y
 drush theme:enable gin
 drush en admin_toolbar admin_toolbar_tools config_inspector devel gin_toolbar
 drush config:set system.theme admin gin -y
