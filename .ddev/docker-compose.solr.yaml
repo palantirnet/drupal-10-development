@@ -22,7 +22,6 @@
 #   change that usage throughout. It can be
 #   accessed at the URL: http://solr:8983/solr/dev (inside web container)
 #   or at http://myproject.ddev.site:8983/solr/dev (on the host)
-
 services:
   solr:
     # Name of container using standard ddev convention

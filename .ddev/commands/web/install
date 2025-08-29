@@ -4,11 +4,18 @@
 ## Usage: install
 ## Example: "ddev install"
 
-drush site:install standard --account-name=admin --account-pass=admin --site-name="Domain 10" -y
-drush en admin_toolbar admin_toolbar_tools config_inspector devel
+drush site:install standard --account-name=admin --account-pass=admin --site-name="Domain 11" -y
+drush theme:enable gin
+drush en admin_toolbar admin_toolbar_tools config_inspector devel gin_toolbar
+drush config:set system.theme admin gin -y
+drush config:set gin.settings classic_toolbar horizontal -y
 
 # Install eslint dependencies
-yarn --cwd $DDEV_DOCROOT/core install
+# The "--cwd" argument doesn't work with Yarn 4.4, because the global version
+# is returned as 1.22.22 when Yarn starts, before switching directories.
+cd $DDEV_DOCROOT/core
+yarn install
+cd -
 # Configure prettier
 test -e .prettierrc.json || ln -s $DDEV_DOCROOT/core/.prettierrc.json .
 test -e .prettierignore || echo '*.yml' > .prettierignore

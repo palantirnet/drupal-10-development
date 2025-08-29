@@ -1,5 +1,5 @@
-# Drupal 10 Development
-A minimal project build for Drupal 10 module development.
+# Drupal 11 Development
+A minimal project build for Drupal 11 module development.
 
 ## Contents
 
@@ -26,7 +26,14 @@ Now you are ready to install Drupal and test modules:
 
 * `ddev install`
 
-This command will install Drupal 10 plus the following useful modules: `devel`, `config_inspector`, `admin_toolbar`, and `admin_toolbar_tools`. You can login with `admin / admin` at https://d10.ddev.site/user.
+This command will install Drupal 11 using the `standard` profile and configures the development environment with:
+- **Admin account**: `admin` / `admin`
+- **Admin theme**: Gin (with classic horizontal toolbar)
+- **Enabled modules**: `admin_toolbar`, `admin_toolbar_tools`, `config_inspector`, `devel`, `gin_toolbar`
+- **Node.js dependencies**: Installs Yarn dependencies for core development (ESLint, Prettier)
+- **Prettier configuration**: Sets up `.prettierrc.json` and `.prettierignore`
+
+You can login with `admin` / `admin` at https://d10.ddev.site/user.
 
 #### Note on NFS:
 
@@ -38,7 +45,7 @@ If using NFS to speed up the container, see these steps.
 
 ### Drush
 
-`drush 11` is installed by default and can be run with `ddev drush COMMAND`. You can use `ddev drush site:install` if you want to customize the install.
+`drush 13` is installed by default and can be run with `ddev drush COMMAND`. You can use `ddev drush site:install` if you want to customize the install.
 
 ### Composer
 
@@ -96,6 +103,14 @@ Use the `-o` flag to specify a different origin than drupal.org. The argument is
 
 Note that this command will `delete` an existing copy of the module.
 
+### ddev cspell
+
+**Command:** `ddev cspell MODULE`
+
+**Example:** `ddev cspell admin_toolbar`
+
+The `cspell` command runs [CSpell](https://cspell.org/) using the core configuration. Any custom works defined in a module's `.cspell-project-words.txt` file will be added to the ruleset during the check and removed after it completes.
+
 ### ddev compat
 
 **Command:** `ddev compat MODULE [-v VERSION]`
@@ -106,7 +121,7 @@ Note that this command will `delete` an existing copy of the module.
 
 The `compat` command will run PHPCS against the selected module using the `PHPCompatibility` coding standard.
 
-Use the `-v` flag to specify a PHP version to test. By default, the version is `8.2`.
+Use the `-v` flag to specify a PHP version to test. By default, the version is `8.3`.
 
 ### ddev eslint
 
@@ -126,7 +141,13 @@ This command is adapted from [ddev contrib](https://github.com/ddev/ddev-drupal-
 
 **Command:** `ddev install`
 
-Installs the default drupal site. This command will also install the node dependencies required for core development.
+Performs a complete Drupal installation with development-focused configuration:
+- Installs Drupal using the `standard` profile
+- Sets up admin account (`admin` / `admin`)
+- Enables and configures the Gin admin theme with horizontal toolbar
+- Enables essential development modules (`admin_toolbar`, `admin_toolbar_tools`, `config_inspector`, `devel`, `gin_toolbar`)
+- Installs Node.js dependencies (Yarn) for core development
+- Configures Prettier for code formatting
 
 ### ddev md
 
@@ -150,7 +171,7 @@ The `rector` command will run Drupal Rector updates against the selected module,
 
 **Command:** `ddev remove MODULE`
 
-**Example:** `ddev rector admin_toolbar`
+**Example:** `ddev remove admin_toolbar`
 
 The `ddev remove` command will uninstall a module and delete it from the `web/modules/contrib` directory.
 
