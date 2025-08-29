@@ -1,133 +1,133 @@
 {
-  "name": "palantirnet/drupal-10-development",
-  "description": "A minimal project build for Drupal 11 module development.",
-  "type": "project",
-  "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/palantirnet/drupal-10-development",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
+    "name": "agentrickard/domain-ddev",
+    "description": "A minimal project build for Drupal 11 Domain module development.",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/agentrickard/domain-ddev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "^2.0",
+        "cweagans/composer-patches": "^1.7",
+        "drupal/admin_toolbar": "^3.5",
+        "drupal/config_inspector": "^2.1",
+        "drupal/core-composer-scaffold": "~11.2.0",
+        "drupal/core-project-message": "~11.2.0",
+        "drupal/core-recommended": "~11.2.0",
+        "drupal/devel": "^5.3",
+        "drupal/examples": "^4.0",
+        "drupal/gin": "^5.0",
+        "drush/drush": "^13.2",
+        "kint-php/kint": "^5.1"
+    },
+    "require-dev": {
+        "behat/mink": "^1.11",
+        "behat/mink-selenium2-driver": "^1.7",
+        "drupal/coder": "^8.3",
+        "friends-of-behat/mink-browserkit-driver": "^1.6",
+        "mglaman/drupal-check": "^1.5",
+        "mikey179/vfsstream": "^1.6",
+        "palantirnet/drupal-rector": "^0.20.3",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpmd/phpmd": "^2.15",
+        "phpspec/prophecy": "^1.19",
+        "phpspec/prophecy-phpunit": "^2.3",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-strict-rules": "^1.5",
+        "phpunit/phpunit": "^10.5",
+        "squizlabs/php_codesniffer": "^3.7",
+        "symfony/phpunit-bridge": "^7.1",
+        "zaporylie/composer-drupal-optimizations": "^1.2"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "zaporylie/composer-drupal-optimizations": true,
+            "cweagans/composer-patches": true
+        },
+        "platform": {
+            "php": "8.3"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
+        },
+        "enable-patching": true,
+        "patches-file": "composer.patches.json",
+        "composer-exit-on-patch-failure": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "drupal-core-project-message": {
+            "include-keys": [
+                "homepage",
+                "support"
+            ],
+            "post-create-project-cmd-message": [
+                "<bg=blue;fg=white>                                                         </>",
+                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
+                "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
+                "<bg=blue;fg=white>                                                         </>",
+                "",
+                "<bg=yellow;fg=black>Next steps</>:",
+                "  * Install the site: https://www.drupal.org/docs/installing-drupal",
+                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
+                "  * Get support: https://www.drupal.org/support",
+                "  * Get involved with the Drupal community:",
+                "      https://www.drupal.org/getting-involved",
+                "  * Remove the plugin that prints this message:",
+                "      composer remove drupal/core-project-message"
+            ]
+        }
     }
-  ],
-  "require": {
-    "composer/installers": "^2.0",
-    "cweagans/composer-patches": "^1.7",
-    "drupal/admin_toolbar": "^3.5",
-    "drupal/config_inspector": "^2.1",
-    "drupal/core-composer-scaffold": "~11.2.0",
-    "drupal/core-project-message": "~11.2.0",
-    "drupal/core-recommended": "~11.2.0",
-    "drupal/devel": "^5.3",
-    "drupal/examples": "^4.0",
-    "drupal/gin": "^5.0",
-    "drush/drush": "^13.2",
-    "kint-php/kint": "^5.1"
-  },
-  "require-dev": {
-    "behat/mink": "^1.11",
-    "behat/mink-selenium2-driver": "^1.7",
-    "drupal/coder": "^8.3",
-    "friends-of-behat/mink-browserkit-driver": "^1.6",
-    "mglaman/drupal-check": "^1.5",
-    "mikey179/vfsstream": "^1.6",
-    "palantirnet/drupal-rector": "^0.20.3",
-    "phpcompatibility/php-compatibility": "^9.3",
-    "phpmd/phpmd": "^2.15",
-    "phpspec/prophecy": "^1.19",
-    "phpspec/prophecy-phpunit": "^2.3",
-    "phpstan/phpstan": "^1.10",
-    "phpstan/phpstan-deprecation-rules": "^1.1",
-    "phpstan/phpstan-strict-rules": "^1.5",
-    "phpunit/phpunit": "^10.5",
-    "squizlabs/php_codesniffer": "^3.7",
-    "symfony/phpunit-bridge": "^7.1",
-    "zaporylie/composer-drupal-optimizations": "^1.2"
-  },
-  "conflict": {
-    "drupal/drupal": "*"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "allow-plugins": {
-      "composer/installers": true,
-      "drupal/core-composer-scaffold": true,
-      "drupal/core-project-message": true,
-      "phpstan/extension-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "zaporylie/composer-drupal-optimizations": true,
-      "cweagans/composer-patches": true
-    },
-    "platform": {
-      "php": "8.3"
-    },
-    "preferred-install": {
-      "*": "dist"
-    },
-    "sort-packages": true
-  },
-  "extra": {
-    "drupal-scaffold": {
-      "locations": {
-        "web-root": "web/"
-      }
-    },
-    "installer-paths": {
-      "web/core": [
-        "type:drupal-core"
-      ],
-      "web/libraries/{$name}": [
-        "type:drupal-library"
-      ],
-      "web/modules/contrib/{$name}": [
-        "type:drupal-module"
-      ],
-      "web/profiles/contrib/{$name}": [
-        "type:drupal-profile"
-      ],
-      "web/themes/contrib/{$name}": [
-        "type:drupal-theme"
-      ],
-      "drush/Commands/contrib/{$name}": [
-        "type:drupal-drush"
-      ],
-      "web/modules/custom/{$name}": [
-        "type:drupal-custom-module"
-      ],
-      "web/profiles/custom/{$name}": [
-        "type:drupal-custom-profile"
-      ],
-      "web/themes/custom/{$name}": [
-        "type:drupal-custom-theme"
-      ]
-    },
-    "enable-patching": true,
-    "patches-file": "composer.patches.json",
-    "composer-exit-on-patch-failure": true,
-    "patchLevel": {
-      "drupal/core": "-p2"
-    },
-    "drupal-core-project-message": {
-      "include-keys": [
-        "homepage",
-        "support"
-      ],
-      "post-create-project-cmd-message": [
-        "<bg=blue;fg=white>                                                         </>",
-        "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
-        "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
-        "<bg=blue;fg=white>                                                         </>",
-        "",
-        "<bg=yellow;fg=black>Next steps</>:",
-        "  * Install the site: https://www.drupal.org/docs/installing-drupal",
-        "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
-        "  * Get support: https://www.drupal.org/support",
-        "  * Get involved with the Drupal community:",
-        "      https://www.drupal.org/getting-involved",
-        "  * Remove the plugin that prints this message:",
-        "      composer remove drupal/core-project-message"
-      ]
-    }
-  }
 }
