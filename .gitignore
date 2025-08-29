@@ -20,6 +20,10 @@ web/sites/default/default.settings.php
 web/sites/simpletest
 .phpunit.result.cache
 
+# Ignore prettier config
+.prettierignore
+.prettierrc.json
+
 # Ignore Node files
 node_modules
 package-lock.json

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+## Description: Run tests on a specific module.
+## Usage: phpunit MODULE_NAME
+## Example: "ddev phpunit domain"
+
+if [ $# -eq 0 ]
+then
+  echo "You must specify a module; e.g. 'ddev phpunit domain'"
+  exit
+fi
+
+if [ ! -d "web/modules/contrib/domain/$1" ]
+then
+  echo "The specified module [$1] does not exist in /web/modules/contrib/domain."
+  exit
+fi
+
+# TODO: Use flags instead?
+# Check for specific test class.
+if [ $# -eq 3 ]
+then
+  TYPE=$2
+fi
+
+# Check for specific test class.
+if [ $# -eq 3 ]
+then
+  CLASS=$3
+fi
+
+# Ensure we have a files directory for test output.
+if [ ! -d "web/sites/simpletest/browser_output" ]
+then
+  # See https://linuxize.com/post/bash-wait/
+  if [ ! -d "web/sites/simpletest" ]
+  then
+    mkdir web/sites/simpletest &
+    PROCESS_ID=$!
+    wait $PROCESS_ID
+  fi
+  mkdir web/sites/simpletest/browser_output
+  echo "Created an output directory"
+fi
+
+CONFIG='/var/www/html/phpunit.xml'
+
+if [ ! -z $CLASS ]
+then
+  echo "======================"
+  echo "Running tests against: /web/modules/contrib/domain/$1/tests/src/$TYPE/$CLASS.php"
+  echo "======================"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/domain/$1/tests/src//$TYPE/$CLASS.php"
+else
+  echo "======================"
+  echo "Running tests against: /web/modules/contrib/domain/$1"
+  echo "======================"
+  vendor/bin/phpunit -c "$CONFIG" "web/modules/contrib/domain/$1"
+fi
+
+echo "-- When you are finished, run 'ddev cleanup' to remove test files."
