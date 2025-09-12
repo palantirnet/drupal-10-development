@@ -2,24 +2,11 @@ name: workflow.yml
 run-name: ${{ github.actor }} test
 on: [push]
 jobs:
-  composer-audit:
+  check-available-updates:
     runs-on: ubuntu-latest
-    name: Composer audit
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install PHP with extensions
-        uses: shivammathur/setup-php@2.26.0
-        with:
-          coverage: "none"
-          php-version: 8.2
-          tools: composer:v2
-
-      - name: "Composer install"
-        uses: "ramsey/composer-install@2.2.0"
-        with:
-          composer-options: "--prefer-dist"
-
-      - name: Run composer audit
-        uses: alamirault/composer-audit-action@v1
+      - name: Check updates
+        id: updates
+        uses: valicm/drupal-update@v4
