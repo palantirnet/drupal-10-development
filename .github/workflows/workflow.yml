@@ -8,6 +8,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
         with:
+          path: 'github/workspace'
           set-safe-directory: '/github/workspace'
 
       - name: Install PHP with extensions
