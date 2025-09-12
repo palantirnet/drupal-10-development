@@ -8,16 +8,6 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
-      - name: Configure Git safe directories
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global --add safe.directory "$(pwd)"
-          git config --global --add safe.directory /github/workspace
-          git config --global --add safe.directory /__w/drupal-10-development/drupal-10-development
-          git config --global --add safe.directory '*'
-          echo "Current directory: $(pwd)"
-          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@2.35.4
         with:
