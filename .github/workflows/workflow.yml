@@ -1,16 +1,20 @@
-name: workflow.yml
-run-name: ${{ github.actor }} test
+name: PHP CI
 on: [push]
 jobs:
-  check-available-updates:
+  php-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
-
-      - name: Check updates
-        id: updates
-        uses: valicm/drupal-update@v4
+      - name: Run PHP Tests in src directory
+        uses: alleyinteractive/action-test-php@develop
         with:
-          update_type: semver-safe-update
-          update_core: false
-          update_exclude: 
+          php-version: '8.2'
+          working-directory: './'
+          cache-dependency-path: './composer.lock'
+          audit-skip: 'false'
+          test-skip: 'true'
+          skip-wordpress-install: 'true'
+          skip-services: 'true'
+          install-skip: 'true'
