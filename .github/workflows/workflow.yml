@@ -1,5 +1,10 @@
 name: workflow.yml
+run-name: ${{ github.actor }} test
 on: [push]
 jobs:
   check-security:
-    uses: lpeabody/drupal-security-action@1.0.0
+    name: Run Drupal Security Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: lpeabody/drupal-security-action@1.0.0
