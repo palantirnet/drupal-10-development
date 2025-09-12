@@ -1,20 +1,24 @@
-name: PHP CI
+name: Composer Audit
 on: [push]
 jobs:
-  php-tests:
+  composer-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+    name: Composer audit
     steps:
-      - uses: actions/checkout@v4
-      - name: Run PHP Tests in src directory
-        uses: alleyinteractive/action-test-php@develop
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@2.35.4
         with:
-          php-version: '8.2'
-          working-directory: './'
-          cache-dependency-path: './composer.lock'
-          audit-skip: 'false'
-          test-skip: 'true'
-          skip-wordpress-install: 'true'
-          skip-services: 'true'
-          install-skip: 'true'
+          coverage: "none"
+          php-version: 8.2
+          tools: composer:v2
+
+      - name: "Composer install"
+        uses: "ramsey/composer-install@2.2.0"
+        with:
+          composer-options: "--prefer-dist"
+
+      - name: Run composer audit
+        uses: alamirault/composer-audit-action@v1
