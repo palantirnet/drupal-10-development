@@ -15,7 +15,8 @@ jobs:
           php-version: 8.2
           tools: composer:v2
 
-      - run: git config --global --add safe.directory /github/workspace
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: "Composer install"
         uses: "ramsey/composer-install@2.2.0"
