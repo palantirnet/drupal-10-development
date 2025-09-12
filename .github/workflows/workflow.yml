@@ -10,3 +10,7 @@ jobs:
       - name: Check updates
         id: updates
         uses: valicm/drupal-update@v4
+        with:
+          update_type: semver-safe-update
+          update_core: false
+          update_exclude: 
