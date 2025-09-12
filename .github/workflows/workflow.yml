@@ -21,4 +21,25 @@ jobs:
           composer-options: "--prefer-dist"
 
       - name: Run composer audit
-        run: composer audit --format=table
+        run: |
+          echo "# Composer Security Audit Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Run audit and capture output
+          if composer audit --format=table > audit_output.txt 2>&1; then
+            echo "✅ **No security vulnerabilities found!**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat audit_output.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Composer audit passed - no vulnerabilities detected"
+          else
+            echo "⚠️ **Security vulnerabilities detected!**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat audit_output.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Composer audit failed - vulnerabilities found"
+            cat audit_output.txt
+            exit 1
+          fi
