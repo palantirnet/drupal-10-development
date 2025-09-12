@@ -2,4 +2,4 @@ name: workflow.yml
 on: [push]
 jobs:
   check-security:
-        - uses: lpeabody/drupal-security-action@1.0.0
+    uses: lpeabody/drupal-security-action@1.0.0
