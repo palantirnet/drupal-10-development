@@ -15,6 +15,11 @@ jobs:
           php-version: 8.2
           tools: composer:v2
 
+      - name: "Composer install"
+        uses: "ramsey/composer-install@2.2.0"
+        with:
+          composer-options: "--prefer-dist"
+
       - name: Run composer audit
         run: |
           echo "# Composer Security Audit Results" >> $GITHUB_STEP_SUMMARY
