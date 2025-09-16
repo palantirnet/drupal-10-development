@@ -1,5 +1,7 @@
 name: Composer Audit
-on: [push]
+on:
+  schedule:
+      - cron: '0 3 * * *' # Runs every day at 3AM UTC
 jobs:
   composer-audit:
     runs-on: ubuntu-latest
