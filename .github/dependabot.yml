@@ -12,9 +12,6 @@ updates:
     # See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference?search-overlay-input=which+metadata+would+apply+to+composer-based+security+updates&search-overlay-ask-ai=true#open-pull-requests-limit-
     # Only allow security updates - blocks regular dependency updates
     open-pull-requests-limit: 0
-    # Ensure security updates are still created despite the limit
-    security-updates:
-      enabled: true
     # Add labels to identify security PRs
     labels:
       - "security"
