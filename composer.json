@@ -13,7 +13,8 @@
   "require": {
     "composer/installers": "^2.0",
     "cweagans/composer-patches": "^1.7",
-    "drupal/admin_toolbar": "^3.5",
+    "drupal/acquia_dam": "1.1.4",
+    "drupal/admin_toolbar": "3.5.1",
     "drupal/config_inspector": "^2.1",
     "drupal/core-composer-scaffold": "~11.2.0",
     "drupal/core-project-message": "~11.2.0",
