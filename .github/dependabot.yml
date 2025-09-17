@@ -9,7 +9,7 @@ updates:
       timezone: "UTC"
     target-branch: "develop"
     # Only allow security updates - blocks regular dependency updates
-    # See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference?search-overlay-input=which+metadata+would+apply+to+composer-based+security+updates&search-overlay-ask-ai=true#open-pull-requests-limit-
+    # See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#open-pull-requests-limit-
     open-pull-requests-limit: 0
     # Add labels to identify security PRs
     labels:
