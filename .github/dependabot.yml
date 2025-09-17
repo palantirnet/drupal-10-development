@@ -35,3 +35,20 @@ updates:
       include: "scope"
     allow:
       - dependency-type: "development"
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "18:20"
+      timezone: "UTC"
+    target-branch: "develop"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "update"
+      prefix-development: "update"
+      include: "scope"
+    allow:
+      - dependency-type: "production"
