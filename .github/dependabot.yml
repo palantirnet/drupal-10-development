@@ -5,19 +5,17 @@ updates:
     schedule:
       interval: "weekly"
       day: "wednesday"
-      time: "17:00"
+      time: "18:00"
       timezone: "UTC"
     target-branch: "develop"
-    # Only allow security updates - blocks regular dependency updates
-    # See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference?search-overlay-input=which+metadata+would+apply+to+composer-based+security+updates&search-overlay-ask-ai=true#open-pull-requests-limit-
-    # Only allow security updates - blocks regular dependency updates
     open-pull-requests-limit: 10
-    # Add labels to identify security PRs
     labels:
       - "security"
       - "dependencies"
-    # Optional: Customize commit messages for security updates
     commit-message:
       prefix: "security"
       prefix-development: "security"
       include: "scope"
+    allow:
+      - dependency-type: "production"
+    security-updates-only: true
