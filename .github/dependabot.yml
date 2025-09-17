@@ -8,3 +8,17 @@ updates:
       time: "20:00"
       timezone: "UTC"
     target-branch: "develop"
+    # Only allow security updates - blocks regular dependency updates
+    open-pull-requests-limit: 0
+    # Ensure security updates are still created despite the limit
+    security-updates:
+      enabled: true
+    # Add labels to identify security PRs
+    labels:
+      - "security"
+      - "dependencies"
+    # Optional: Customize commit messages for security updates
+    commit-message:
+      prefix: "security"
+      prefix-development: "security"
+      include: "scope"
