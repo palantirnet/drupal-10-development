@@ -2,8 +2,6 @@ name: Notify on Dependabot PRs
 on:
   pull_request:
     types: [opened, synchronize]
-    branches:
-      - develop
 jobs:
   test:
     runs-on: ubuntu-latest
