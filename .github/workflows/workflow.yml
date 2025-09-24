@@ -1,4 +1,4 @@
-name: Composer Audit
+name: D10 Composer Audit Test
 on:
   schedule:
       - cron: '0 20 * * *' # Runs every day at 8PM UTC
