@@ -22,7 +22,7 @@
     "drupal/examples": "^4.0",
     "drupal/gin": "^5.0",
     "drush/drush": "^13.2",
-    "kint-php/kint": "^5.1"
+    "kint-php/kint": "^6.0"
   },
   "require-dev": {
     "behat/mink": "^1.11",
@@ -31,7 +31,7 @@
     "friends-of-behat/mink-browserkit-driver": "^1.6",
     "mglaman/drupal-check": "^1.5",
     "mikey179/vfsstream": "^1.6",
-    "palantirnet/drupal-rector": "^0.20.3",
+    "palantirnet/drupal-rector": "^0.21.0",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpmd/phpmd": "^2.15",
     "phpspec/prophecy": "^1.19",
