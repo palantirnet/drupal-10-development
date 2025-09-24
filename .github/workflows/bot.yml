@@ -1,7 +1,7 @@
 name: D10 Dependabot Notice
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened]
 jobs:
   test:
     runs-on: ubuntu-latest
