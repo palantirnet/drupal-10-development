@@ -22,7 +22,7 @@
     "drupal/examples": "^4.0",
     "drupal/gin": "^5.0",
     "drush/drush": "^13.2",
-    "kint-php/kint": "^5.1"
+    "kint-php/kint": "^6.0"
   },
   "require-dev": {
     "behat/mink": "^1.11",
