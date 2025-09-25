@@ -56,13 +56,11 @@ jobs:
               
               if [ -f "$json_file" ] && [ "$(jq length "$json_file")" -gt 0 ]; then
                 # Create table header
-                cat > "$output_file" << 'TABLE_HEADER'
-+-------------------+----------------------------------------------------------------------------------+
-| Package           | Details                                                                          |
-+-------------------+----------------------------------------------------------------------------------+
-TABLE_HEADER
+                echo "+-------------------+----------------------------------------------------------------------------------+" > "$output_file"
+                echo "| Package           | Details                                                                          |" >> "$output_file"
+                echo "+-------------------+----------------------------------------------------------------------------------+" >> "$output_file"
                 
-                # Process each advisory using a more YAML-friendly approach
+                # Process each advisory using a YAML-safe approach
                 jq -r '.[] | ["| " + .packageName + " | " + .packageName + " |", "| Severity          | " + (.severity // "") + " |", "| CVE               | " + (.cve // "") + " |", "| Title             | " + .title + " |", "| URL               | " + .link + " |", "| Affected versions | " + .affectedVersions + " |", "| Reported at       | " + .reportedAt + " |", "+-------------------+----------------------------------------------------------------------------------+"] | .[]' "$json_file" >> "$output_file"
               fi
             }
