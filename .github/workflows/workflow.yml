@@ -56,19 +56,14 @@ jobs:
               
               if [ -f "$json_file" ] && [ "$(jq length "$json_file")" -gt 0 ]; then
                 # Create table header
-                echo "+-------------------+----------------------------------------------------------------------------------+" > "$output_file"
-                echo "| Package           | Details                                                                          |" >> "$output_file"
-                echo "+-------------------+----------------------------------------------------------------------------------+" >> "$output_file"
+                cat > "$output_file" << 'TABLE_HEADER'
++-------------------+----------------------------------------------------------------------------------+
+| Package           | Details                                                                          |
++-------------------+----------------------------------------------------------------------------------+
+TABLE_HEADER
                 
-                # Process each advisory
-                jq -r '.[] | "| " + .packageName + " | " + .packageName + " |
-| Severity          | " + (.severity // "") + " |
-| CVE               | " + (.cve // "") + " |
-| Title             | " + .title + " |
-| URL               | " + .link + " |
-| Affected versions | " + .affectedVersions + " |
-| Reported at       | " + .reportedAt + " |
-+-------------------+----------------------------------------------------------------------------------+"' "$json_file" >> "$output_file"
+                # Process each advisory using a more YAML-friendly approach
+                jq -r '.[] | ["| " + .packageName + " | " + .packageName + " |", "| Severity          | " + (.severity // "") + " |", "| CVE               | " + (.cve // "") + " |", "| Title             | " + .title + " |", "| URL               | " + .link + " |", "| Affected versions | " + .affectedVersions + " |", "| Reported at       | " + .reportedAt + " |", "+-------------------+----------------------------------------------------------------------------------+"] | .[]' "$json_file" >> "$output_file"
               fi
             }
             
