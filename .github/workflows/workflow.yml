@@ -1,8 +1,5 @@
 name: D10 - Security Review
-on:
-  schedule:
-    - cron: '30 20 * * 3' # Runs every Wednesday at 8:30PM UTC / 4:30 EDT / 3:30 EST.
-    - cron: '30 06 * * 4' # Runs every Thursday at 6:30AM UTC / 2:30 EDT / 1:30 EST.
+on: push
 jobs:
   drupal-security-audit:
     runs-on: ubuntu-latest
