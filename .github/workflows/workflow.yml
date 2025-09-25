@@ -25,50 +25,97 @@ jobs:
           echo "# Drupal Security Audit Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # Run audit in table format
-          composer audit --locked --format=table > audit_table.txt 2>&1 || AUDIT_EXIT_CODE=$?
+          # Run audit in JSON format for easier parsing
+          composer audit --locked --format=json > audit_results.json 2>&1 || AUDIT_EXIT_CODE=$?
 
           # Check if we have any vulnerabilities at all
-          if [ -f "audit_table.txt" ] && [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
-            # Separate Drupal and non-Drupal vulnerabilities
-            HAS_DRUPAL=$(grep -q "drupal/" audit_table.txt && echo "true" || echo "false")
-            # Check for non-Drupal packages (packages that are not drupal/)
-            HAS_NON_DRUPAL=$(grep "^| Package" audit_table.txt | grep -v "drupal/" | grep -q "|" && echo "true" || echo "false")
+          if [ -f "audit_results.json" ] && [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
+            echo "Parsing JSON audit results..."
+            
+            # Extract Drupal and non-Drupal vulnerabilities using jq
+            echo "Extracting Drupal vulnerabilities..."
+            jq '[.advisories | to_entries[] | select(.key | startswith("drupal/")) | .value | to_entries[] | .value]' audit_results.json > drupal_advisories.json 2>/dev/null || echo '[]' > drupal_advisories.json
+            
+            echo "Extracting non-Drupal vulnerabilities..."
+            jq '[.advisories | to_entries[] | select(.key | startswith("drupal/") | not) | .value[]]' audit_results.json > non_drupal_advisories.json 2>/dev/null || echo '[]' > non_drupal_advisories.json
+            
+            # Check what we found
+            DRUPAL_COUNT=$(jq length drupal_advisories.json 2>/dev/null || echo 0)
+            NON_DRUPAL_COUNT=$(jq length non_drupal_advisories.json 2>/dev/null || echo 0)
+            
+            HAS_DRUPAL=$([ "$DRUPAL_COUNT" -gt 0 ] && echo "true" || echo "false")
+            HAS_NON_DRUPAL=$([ "$NON_DRUPAL_COUNT" -gt 0 ] && echo "true" || echo "false")
+            
+            echo "Found $DRUPAL_COUNT Drupal vulnerabilities"
+            echo "Found $NON_DRUPAL_COUNT non-Drupal vulnerabilities"
+            
+            # Function to create a table from JSON advisories
+            create_table() {
+              local json_file=$1
+              local output_file=$2
+              
+              if [ -f "$json_file" ] && [ "$(jq length "$json_file")" -gt 0 ]; then
+                # Create table header
+                echo "+-------------------+----------------------------------------------------------------------------------+" > "$output_file"
+                echo "| Package           | Details                                                                          |" >> "$output_file"
+                echo "+-------------------+----------------------------------------------------------------------------------+" >> "$output_file"
+                
+                # Process each advisory
+                jq -r '.[] | "| " + .packageName + " | " + .packageName + " |
+| Severity          | " + (.severity // "") + " |
+| CVE               | " + (.cve // "") + " |
+| Title             | " + .title + " |
+| URL               | " + .link + " |
+| Affected versions | " + .affectedVersions + " |
+| Reported at       | " + .reportedAt + " |
++-------------------+----------------------------------------------------------------------------------+"' "$json_file" >> "$output_file"
+              fi
+            }
+            
+            # Create tables for Drupal and non-Drupal vulnerabilities
+            if [ "$HAS_DRUPAL" = "true" ]; then
+              create_table drupal_advisories.json drupal_table.txt
+            fi
+            
+            if [ "$HAS_NON_DRUPAL" = "true" ]; then
+              create_table non_drupal_advisories.json non_drupal_table.txt
+            fi
             
             # Show Drupal vulnerabilities if any
             if [ "$HAS_DRUPAL" = "true" ]; then
               echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-              # Show complete table but filter for readability in summary
-              tail -n +2 audit_table.txt >> $GITHUB_STEP_SUMMARY
+              cat drupal_table.txt >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
-              
-              # Add a note if non-Drupal issues also exist
-              if [ "$HAS_NON_DRUPAL" = "true" ]; then
-                echo "ℹ️ **Note:** The table above includes both Drupal and non-Drupal packages. Non-Drupal vulnerabilities do not affect the Drupal audit result." >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            # Show non-Drupal vulnerabilities if any
+            if [ "$HAS_NON_DRUPAL" = "true" ]; then
+              if [ "$HAS_DRUPAL" = "true" ]; then
+                echo "ℹ️ **Security vulnerabilities also found in non-Drupal packages:**" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "ℹ️ **Security vulnerabilities detected in non-Drupal packages:**" >> $GITHUB_STEP_SUMMARY
               fi
-            elif [ "$HAS_NON_DRUPAL" = "true" ]; then
-              echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
-              echo "" >> $GITHUB_STEP_SUMMARY
-              echo "ℹ️ **Security vulnerabilities detected in non-Drupal packages:**" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-              tail -n +2 audit_table.txt >> $GITHUB_STEP_SUMMARY
+              cat non_drupal_table.txt >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             fi
             
             # Console output
             if [ "$HAS_DRUPAL" = "true" ]; then
               echo "❌ Drupal security audit failed - vulnerabilities found in Drupal packages"
-              echo "Security audit results:"
-              tail -n +2 audit_table.txt
+              echo "Drupal security vulnerabilities:"
+              cat drupal_table.txt
               exit 1
             else
               echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
               if [ "$HAS_NON_DRUPAL" = "true" ]; then
-                echo "ℹ️ Note: Non-Drupal packages have vulnerabilities, but they don't affect Drupal audit status"
+                echo "ℹ️ Non-Drupal packages have vulnerabilities (shown in summary)"
               fi
             fi
           else
