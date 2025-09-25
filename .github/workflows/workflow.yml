@@ -62,6 +62,9 @@ jobs:
               if [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
                 echo "ℹ️ **Note:** Security issues were found in non-Drupal packages, but no Drupal packages are affected." >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "✅ **No security issues found in any packages (including non-Drupal packages)!**" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY
               fi
 
               echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
@@ -84,6 +87,9 @@ jobs:
               if [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
                 echo "" >> $GITHUB_STEP_SUMMARY
                 echo "ℹ️ **Note:** Security issues were found in non-Drupal packages, but no Drupal packages are affected." >> $GITHUB_STEP_SUMMARY
+              else
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "✅ **No security issues found in any packages (including non-Drupal packages)!**" >> $GITHUB_STEP_SUMMARY
               fi
               echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
             fi
