@@ -28,28 +28,50 @@ jobs:
           # Run audit in table format
           composer audit --locked --format=table > audit_table.txt 2>&1 || AUDIT_EXIT_CODE=$?
 
-          # Check if Drupal packages have vulnerabilities
-          if [ -f "audit_table.txt" ] && grep -q "drupal/" audit_table.txt; then
-            echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            tail -n +2 audit_table.txt >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-
-            echo "❌ Drupal security audit failed - vulnerabilities found in Drupal packages"
-            echo "Security vulnerabilities found:"
-            tail -n +2 audit_table.txt
-            exit 1
-          else
-            echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+          # Check if we have any vulnerabilities at all
+          if [ -f "audit_table.txt" ] && [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
+            # Separate Drupal and non-Drupal vulnerabilities
+            HAS_DRUPAL=$(grep -q "drupal/" audit_table.txt && echo "true" || echo "false")
+            # Check for non-Drupal packages (packages that are not drupal/)
+            HAS_NON_DRUPAL=$(grep "^| Package" audit_table.txt | grep -v "drupal/" | grep -q "|" && echo "true" || echo "false")
             
-            if [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
+            # Show Drupal vulnerabilities if any
+            if [ "$HAS_DRUPAL" = "true" ]; then
+              echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
-              echo "ℹ️ **Note:** Security issues were found in non-Drupal packages, but no Drupal packages are affected." >> $GITHUB_STEP_SUMMARY
-            else
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              # Show complete table but filter for readability in summary
+              tail -n +2 audit_table.txt >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
-              echo "✅ **No security issues found in any packages (including non-Drupal packages)!**" >> $GITHUB_STEP_SUMMARY
+              
+              # Add a note if non-Drupal issues also exist
+              if [ "$HAS_NON_DRUPAL" = "true" ]; then
+                echo "ℹ️ **Note:** The table above includes both Drupal and non-Drupal packages. Non-Drupal vulnerabilities do not affect the Drupal audit result." >> $GITHUB_STEP_SUMMARY
+              fi
+            elif [ "$HAS_NON_DRUPAL" = "true" ]; then
+              echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "ℹ️ **Security vulnerabilities detected in non-Drupal packages:**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              tail -n +2 audit_table.txt >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             fi
             
-            echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
+            # Console output
+            if [ "$HAS_DRUPAL" = "true" ]; then
+              echo "❌ Drupal security audit failed - vulnerabilities found in Drupal packages"
+              echo "Security audit results:"
+              tail -n +2 audit_table.txt
+              exit 1
+            else
+              echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
+              if [ "$HAS_NON_DRUPAL" = "true" ]; then
+                echo "ℹ️ Note: Non-Drupal packages have vulnerabilities, but they don't affect Drupal audit status"
+              fi
+            fi
+          else
+            echo "✅ **No security vulnerabilities found in any packages!**" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Drupal security audit passed - no vulnerabilities detected in any packages"
           fi
