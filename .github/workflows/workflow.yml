@@ -42,9 +42,30 @@ jobs:
               if [ -f "audit_table.txt" ] && grep -q "drupal/" audit_table.txt; then
                 echo "**Security Issues Found:**" >> $GITHUB_STEP_SUMMARY
                 echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-                # Filter table output for drupal packages with headers
+                # Show basic table first
                 grep -E "(^Package|^----|drupal/)" audit_table.txt >> $GITHUB_STEP_SUMMARY
                 echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY
+                
+                # Add version information for affected packages
+                echo "**Package Version Details:**" >> $GITHUB_STEP_SUMMARY
+                echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                echo "Package | Installed Version | Required Version" >> $GITHUB_STEP_SUMMARY
+                echo "--------|------------------|------------------" >> $GITHUB_STEP_SUMMARY
+                
+                # Extract package names and get version info
+                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+                if [ -n "$AFFECTED_PACKAGES" ]; then
+                  for pkg in $AFFECTED_PACKAGES; do
+                    if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
+                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                      AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
+                      echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION" >> $GITHUB_STEP_SUMMARY
+                    fi
+                  done
+                fi
+                echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
               else
                 # Fallback to JSON if table format fails
                 echo "**Security Issues Found:**" >> $GITHUB_STEP_SUMMARY
@@ -59,6 +80,21 @@ jobs:
               if [ -f "audit_table.txt" ] && grep -q "drupal/" audit_table.txt; then
                 echo "Security vulnerabilities found:"
                 grep -E "(^Package|^----|drupal/)" audit_table.txt
+                echo ""
+                echo "Package version details:"
+                echo "Package | Installed Version | Required Version"
+                echo "--------|------------------|------------------"
+                
+                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+                if [ -n "$AFFECTED_PACKAGES" ]; then
+                  for pkg in $AFFECTED_PACKAGES; do
+                    if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
+                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                      AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
+                      echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION"
+                    fi
+                  done
+                fi
               else
                 echo "$DRUPAL_ADVISORIES"
               fi
@@ -89,9 +125,43 @@ jobs:
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               grep -E "(^Package|^----|drupal/)" audit_table.txt >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              
+              # Add version information for affected packages
+              echo "**Package Version Details:**" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              echo "Package | Installed Version | Required Version" >> $GITHUB_STEP_SUMMARY
+              echo "--------|------------------|------------------" >> $GITHUB_STEP_SUMMARY
+              
+              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+              if [ -n "$AFFECTED_PACKAGES" ]; then
+                for pkg in $AFFECTED_PACKAGES; do
+                  if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
+                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                    AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
+                    echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION" >> $GITHUB_STEP_SUMMARY
+                  fi
+                done
+              fi
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               echo "❌ Drupal security audit failed - vulnerabilities found"
               echo "Security vulnerabilities found:"
               grep -E "(^Package|^----|drupal/)" audit_table.txt
+              echo ""
+              echo "Package version details:"
+              echo "Package | Installed Version | Required Version"
+              echo "--------|------------------|------------------"
+              
+              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+              if [ -n "$AFFECTED_PACKAGES" ]; then
+                for pkg in $AFFECTED_PACKAGES; do
+                  if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
+                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                    AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
+                    echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION"
+                  fi
+                done
+              fi
               exit 1
             else
               echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
