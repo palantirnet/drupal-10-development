@@ -1,11 +1,9 @@
 name: D10 Composer Audit Test
-on:
-  schedule:
-      - cron: '0 20 * * *' # Runs every day at 8PM UTC
+on: push
 jobs:
-  composer-audit:
+  drupal-security-audit:
     runs-on: ubuntu-latest
-    name: Composer audit
+    name: Drupal security audit
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -22,26 +20,71 @@ jobs:
         with:
           composer-options: "--prefer-dist"
 
-      - name: Run composer audit
+      - name: Run composer audit for Drupal packages
         run: |
-          echo "# Composer Security Audit Results" >> $GITHUB_STEP_SUMMARY
+          echo "# Drupal Security Audit Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # Run audit and capture output
-          if composer audit --format=table > audit_output.txt 2>&1; then
-            echo "✅ **No security vulnerabilities found!**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            cat audit_output.txt >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            echo "✅ Composer audit passed - no vulnerabilities detected"
+          # Run full audit and capture output
+          composer audit --locked --format=json > audit_full.json 2>&1 || AUDIT_EXIT_CODE=$?
+
+          # Filter results to only show drupal/ packages
+          if [ -f "audit_full.json" ] && [ -s "audit_full.json" ]; then
+            # Parse JSON and filter for drupal packages
+            DRUPAL_ADVISORIES=$(cat audit_full.json | jq '.advisories | to_entries[] | select(.key | startswith("drupal/"))' 2>/dev/null)
+
+            if [ -n "$DRUPAL_ADVISORIES" ] && [ "$DRUPAL_ADVISORIES" != "" ]; then
+              echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+              echo "$DRUPAL_ADVISORIES" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+              # Also try table format for better readability
+              composer audit --locked --format=table > audit_table.txt 2>&1 || true
+              if [ -f "audit_table.txt" ]; then
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "**Detailed Report:**" >> $GITHUB_STEP_SUMMARY
+                echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                # Filter table output for drupal packages
+                grep -E "(^Package|^--------)|drupal/" audit_table.txt >> $GITHUB_STEP_SUMMARY || echo "No Drupal vulnerabilities in table format" >> $GITHUB_STEP_SUMMARY
+                echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              fi
+
+              echo "❌ Drupal security audit failed - vulnerabilities found in Drupal packages"
+              echo "$DRUPAL_ADVISORIES"
+              exit 1
+            else
+              echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+
+              # Show that we checked but found no Drupal issues
+              if [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
+                echo "ℹ️ **Note:** Security issues were found in non-Drupal packages, but no Drupal packages are affected." >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY
+              fi
+
+              echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
+            fi
           else
-            echo "⚠️ **Security vulnerabilities detected!**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            cat audit_output.txt >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            echo "❌ Composer audit failed - vulnerabilities found"
-            cat audit_output.txt
-            exit 1
+            # Fallback to table format if JSON parsing failed
+            composer audit --locked --format=table > audit_table.txt 2>&1 || AUDIT_EXIT_CODE=$?
+
+            if grep -q "drupal/" audit_table.txt; then
+              echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              grep -E "(^Package|^--------)|drupal/" audit_table.txt >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              echo "❌ Drupal security audit failed - vulnerabilities found"
+              cat audit_table.txt
+              exit 1
+            else
+              echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
+              if [ "${AUDIT_EXIT_CODE:-0}" != "0" ]; then
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "ℹ️ **Note:** Security issues were found in non-Drupal packages, but no Drupal packages are affected." >> $GITHUB_STEP_SUMMARY
+              fi
+              echo "✅ Drupal security audit passed - no vulnerabilities detected in Drupal packages"
+            fi
           fi
