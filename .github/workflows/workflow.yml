@@ -54,11 +54,11 @@ jobs:
                 echo "--------|------------------|------------------" >> $GITHUB_STEP_SUMMARY
                 
                 # Extract package names and get version info
-                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "")
                 if [ -n "$AFFECTED_PACKAGES" ]; then
                   for pkg in $AFFECTED_PACKAGES; do
                     if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
-                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $4}' || echo "unknown")
                       AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
                       echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION" >> $GITHUB_STEP_SUMMARY
                     fi
@@ -85,11 +85,11 @@ jobs:
                 echo "Package | Installed Version | Required Version"
                 echo "--------|------------------|------------------"
                 
-                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+                AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "")
                 if [ -n "$AFFECTED_PACKAGES" ]; then
                   for pkg in $AFFECTED_PACKAGES; do
                     if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
-                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                      INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $4}' || echo "unknown")
                       AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
                       echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION"
                     fi
@@ -133,11 +133,11 @@ jobs:
               echo "Package | Installed Version | Required Version" >> $GITHUB_STEP_SUMMARY
               echo "--------|------------------|------------------" >> $GITHUB_STEP_SUMMARY
               
-              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "")
               if [ -n "$AFFECTED_PACKAGES" ]; then
                 for pkg in $AFFECTED_PACKAGES; do
                   if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
-                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $4}' || echo "unknown")
                     AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
                     echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION" >> $GITHUB_STEP_SUMMARY
                   fi
@@ -152,11 +152,11 @@ jobs:
               echo "Package | Installed Version | Required Version"
               echo "--------|------------------|------------------"
               
-              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk '{print $2}' || echo "")
+              AFFECTED_PACKAGES=$(grep "drupal/" audit_table.txt | grep -v "^Package" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "")
               if [ -n "$AFFECTED_PACKAGES" ]; then
                 for pkg in $AFFECTED_PACKAGES; do
                   if [ -n "$pkg" ] && [[ "$pkg" == drupal/* ]]; then
-                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $3}' || echo "unknown")
+                    INSTALLED_VERSION=$(composer show "$pkg" 2>/dev/null | grep "versions" | head -1 | awk '{print $4}' || echo "unknown")
                     AFFECTED_VERSION=$(grep -A 10 "$pkg" audit_table.txt | grep "Affected versions" | awk -F'|' '{print $3}' | sed 's/^ *//;s/ *$//' || echo "unknown")
                     echo "$pkg | $INSTALLED_VERSION | $AFFECTED_VERSION"
                   fi
