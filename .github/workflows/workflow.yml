@@ -36,23 +36,32 @@ jobs:
             if [ -n "$DRUPAL_ADVISORIES" ] && [ "$DRUPAL_ADVISORIES" != "" ]; then
               echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
-              echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
-              echo "$DRUPAL_ADVISORIES" >> $GITHUB_STEP_SUMMARY
-              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-              # Also try table format for better readability
+              # Get table format for better readability
               composer audit --locked --format=table > audit_table.txt 2>&1 || true
-              if [ -f "audit_table.txt" ]; then
-                echo "" >> $GITHUB_STEP_SUMMARY
-                echo "**Detailed Report:**" >> $GITHUB_STEP_SUMMARY
+              if [ -f "audit_table.txt" ] && grep -q "drupal/" audit_table.txt; then
+                echo "**Security Issues Found:**" >> $GITHUB_STEP_SUMMARY
                 echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-                # Filter table output for drupal packages
-                grep -E "(^Package|^--------)|drupal/" audit_table.txt >> $GITHUB_STEP_SUMMARY || echo "No Drupal vulnerabilities in table format" >> $GITHUB_STEP_SUMMARY
+                # Filter table output for drupal packages with headers
+                grep -E "(^Package|^----|drupal/)" audit_table.txt >> $GITHUB_STEP_SUMMARY
+                echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              else
+                # Fallback to JSON if table format fails
+                echo "**Security Issues Found:**" >> $GITHUB_STEP_SUMMARY
+                echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+                echo "$DRUPAL_ADVISORIES" >> $GITHUB_STEP_SUMMARY
                 echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               fi
 
               echo "❌ Drupal security audit failed - vulnerabilities found in Drupal packages"
-              echo "$DRUPAL_ADVISORIES"
+              
+              # Show table format in console output as well
+              if [ -f "audit_table.txt" ] && grep -q "drupal/" audit_table.txt; then
+                echo "Security vulnerabilities found:"
+                grep -E "(^Package|^----|drupal/)" audit_table.txt
+              else
+                echo "$DRUPAL_ADVISORIES"
+              fi
               exit 1
             else
               echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
@@ -76,11 +85,13 @@ jobs:
             if grep -q "drupal/" audit_table.txt; then
               echo "⚠️ **Security vulnerabilities detected in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
               echo "" >> $GITHUB_STEP_SUMMARY
+              echo "**Security Issues Found:**" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-              grep -E "(^Package|^--------)|drupal/" audit_table.txt >> $GITHUB_STEP_SUMMARY
+              grep -E "(^Package|^----|drupal/)" audit_table.txt >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               echo "❌ Drupal security audit failed - vulnerabilities found"
-              cat audit_table.txt
+              echo "Security vulnerabilities found:"
+              grep -E "(^Package|^----|drupal/)" audit_table.txt
               exit 1
             else
               echo "✅ **No security vulnerabilities found in Drupal packages!**" >> $GITHUB_STEP_SUMMARY
