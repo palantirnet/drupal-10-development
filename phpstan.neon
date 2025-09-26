@@ -12,3 +12,5 @@ parameters:
     - "#^Unsafe usage of new static#"
     # PHP unit statics: https://github.com/phpstan/phpstan-strict-rules/pull/5
     - "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert#"
+    # PHPUnit TestCase methods like once(), exactly(), etc. are instance methods, not static
+    - "#^Dynamic call to static method PHPUnit\\\\Framework\\\\TestCase::(once|exactly|never|atLeast|atMost|any)\\(\\)#"
