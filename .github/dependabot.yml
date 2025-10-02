@@ -1,20 +1,57 @@
+# Dependabot configuration for Composer that ONLY opens PRs for *Drupal* security advisories.
+# - Regular version update PRs are disabled entirely.
+# - Security update PRs are *restricted* to packages whose names match "drupal/*" or "drupal/core*".
+# - Matching Drupal security updates are grouped into a single PR when possible.
+#
+# Notes:
+# • "schedule" is required by the schema, but its cadence is irrelevant once version updates are disabled.
+# • Security PRs are triggered by GitHub vulnerability alerts; make sure
+#   "Dependabot alerts" and "Dependabot security updates" are enabled in repo settings.
+# • This will NOT create PRs for non-Drupal Composer packages (e.g., symfony/*, guzzlehttp/*).
+# • If you later want non-Drupal security PRs too, remove or expand the "allow:" list.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Security update workflow (event-driven):
+# Drupal publishes a Security Advisory (SA) → GitHub Advisory Database (GHSA)
+# adds/reviews the advisory for the affected package (e.g., drupal/core) →
+# Dependabot detects the GHSA entry and (if enabled) opens a security alert/PR.
+# NOTE: This is event-driven. The 'schedule' below affects ONLY regular version
+# updates, not security advisories—so the schedule is irrelevant for security PRs.
+# ─────────────────────────────────────────────────────────────────────────────
+
 version: 2
+
 updates:
-  - package-ecosystem: "composer"
-    directory: "/"
+  - package-ecosystem: composer        # Manage dependencies in composer.json/composer.lock
+    directory: "/"                     # Path to your Composer manifests (adjust if needed)
+
+    # Required by schema. Since version PRs are disabled below, this interval has no practical effect.
     schedule:
-      interval: "weekly"
-      day: "wednesday"
-      time: "20:00"
-      timezone: "UTC"
-    target-branch: "develop"
-    open-pull-requests-limit: 10
-    labels:
-      - "security"
-      - "dependencies"
-    commit-message:
-      prefix: "security"
-      prefix-development: "security"
-      include: "scope"
+      interval: weekly
+
+    # CRITICAL: Set to 0 to disable *version* update PRs entirely.
+    # Dependabot will still open *security* PRs unless blocked by filters.
+    open-pull-requests-limit: 0
+
+    # WHITELIST: Restrict which dependencies Dependabot may update at all.
+    # This filter applies to both version and security updates.
+    # Because version updates are disabled above, the only effect here
+    # is to limit *security* PRs to Drupal packages.
     allow:
-      - dependency-type: "production"
+      - dependency-name: "drupal/*"     # All contrib modules/themes distributed as drupal/<project>
+      - dependency-name: "drupal/core*" # Core packages: drupal/core, drupal/core-recommended, etc.
+
+    # ── Labels applied to PRs created by this update config ─────────────────────
+    # NOTE: Setting "labels" here OVERRIDES Dependabot's defaults.
+    # Ensure these labels exist in the repo (create them once if needed).
+    labels:
+      - security        # Signals these are security-related; great for triage/filters/alerts
+
+    # OPTIONAL (nice-to-have): Group any resulting *Drupal security* updates into a single PR.
+    # This does not change *what* gets PRs—only *how* they are bundled.
+    groups:
+      drupal-security:
+        applies-to: security-updates
+        patterns:
+          - "drupal/*"
+          - "drupal/core*"
