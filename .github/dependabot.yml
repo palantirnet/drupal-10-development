@@ -30,7 +30,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "14:00"
+      time: "16:00"
       timezone: "UTC"
 
     # CRITICAL: Set to 0 to disable *version* update PRs entirely.
