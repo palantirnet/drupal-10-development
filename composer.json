@@ -13,6 +13,7 @@
   "require": {
     "composer/installers": "^2.0",
     "cweagans/composer-patches": "^1.7",
+    "drupal/acquia_dam": "1.1.4",
     "drupal/admin_toolbar": "3.5.1",
     "drupal/config_inspector": "^2.1",
     "drupal/core-composer-scaffold": "~11.2.0",
@@ -22,6 +23,7 @@
     "drupal/examples": "^4.0",
     "drupal/gin": "^5.0",
     "drush/drush": "^13.2",
+    "enshrined/svg-sanitize": "0.21.0",
     "kint-php/kint": "^6.0"
   },
   "require-dev": {
@@ -34,6 +36,7 @@
     "palantirnet/drupal-rector": "^0.21.0",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpmd/phpmd": "^2.15",
+    "phpseclib/phpseclib": "3.0.33",
     "phpspec/prophecy": "^1.19",
     "phpspec/prophecy-phpunit": "^2.3",
     "phpstan/phpstan": "^1.10",
