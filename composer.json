@@ -23,7 +23,7 @@
     "drupal/examples": "^4.0",
     "drupal/gin": "^5.0",
     "drush/drush": "^13.2",
-    "enshrined/svg-sanitize": "0.21.0",
+    "enshrined/svg-sanitize": "0.22.0",
     "kint-php/kint": "^6.0"
   },
   "require-dev": {
