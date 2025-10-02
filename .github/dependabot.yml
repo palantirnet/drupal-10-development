@@ -25,7 +25,8 @@ updates:
   - package-ecosystem: composer        # Manage dependencies in composer.json/composer.lock
     directory: "/"                     # Path to your Composer manifests (adjust if needed)
 
-    # Required by schema. Since version PRs are disabled below, this interval has no practical effect.
+    # Required by schema.
+    # Irrelevant for security PRs (those trigger on GHSA events, not on schedule).
     schedule:
       interval: weekly
 
