@@ -28,7 +28,10 @@ updates:
     # Required by schema.
     # Irrelevant for security PRs (those trigger on GHSA events, not on schedule).
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "thursday"
+      time: "14:00"
+      timezone: "UTC"
 
     # CRITICAL: Set to 0 to disable *version* update PRs entirely.
     # Dependabot will still open *security* PRs unless blocked by filters.
