@@ -168,9 +168,9 @@ jobs:
             ====================================
             ${{ steps.audit.outputs.drupal_details }}
             
-            ====================================
-            NON-DRUPAL VULNERABILITY DETAILS:
-            ====================================
+            ${{ steps.audit.outputs.non_drupal_count > 0 && '====================================' || '' }}
+            ${{ steps.audit.outputs.non_drupal_count > 0 && 'NON-DRUPAL VULNERABILITY DETAILS:' || '' }}
+            ${{ steps.audit.outputs.non_drupal_count > 0 && '====================================' || '' }}
             ${{ steps.audit.outputs.non_drupal_details }}
             
             ====================================
