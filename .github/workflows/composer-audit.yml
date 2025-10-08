@@ -1,7 +1,7 @@
 name: D10 - Security Review
 on:
   schedule:
-    - cron: '30 20 * * 3' # Runs every Wednesday at 8:30PM UTC / 4:30 EDT / 3:30 EST.
+    - cron: '0 21 * * 3' # Runs every Wednesday at 8:30PM UTC / 5:00 EDT / 4:00 EST.
     - cron: '30 06 * * 4' # Runs every Thursday at 6:30AM UTC / 2:30 EDT / 1:30 EST.
 jobs:
   drupal-security-audit:
@@ -148,7 +148,7 @@ jobs:
         uses: dawidd6/action-send-mail@v6
         with:
           server_address: smtp.gmail.com
-          server_port: 587
+          server_port: 465
           secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
