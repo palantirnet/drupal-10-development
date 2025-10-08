@@ -24,6 +24,7 @@ jobs:
           composer-options: "--prefer-dist"
 
       - name: Run composer audit for Drupal packages
+        id: audit # Needed for email
         run: |
           echo "# Drupal Security Audit Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -51,6 +52,10 @@ jobs:
 
             echo "Found $DRUPAL_COUNT Drupal vulnerabilities"
             echo "Found $NON_DRUPAL_COUNT non-Drupal vulnerabilities"
+
+            # Save counts for email
+            echo "drupal_count=$DRUPAL_COUNT" >> $GITHUB_OUTPUT
+            echo "non_drupal_count=$NON_DRUPAL_COUNT" >> $GITHUB_OUTPUT
 
             # Function to create a table from JSON advisories
             create_table() {
@@ -87,6 +92,14 @@ jobs:
               echo "" >> $GITHUB_STEP_SUMMARY
             fi
 
+            # Save Drupal vulnerabilities for email
+            if [ "$HAS_DRUPAL" = "true" ]; then
+              DRUPAL_DETAILS=$(cat drupal_table.txt)
+              echo "drupal_details<<EOF" >> $GITHUB_OUTPUT
+              echo "$DRUPAL_DETAILS" >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
+            fi
+
             # Show non-Drupal vulnerabilities if any
             if [ "$HAS_NON_DRUPAL" = "true" ]; then
               if [ "$HAS_DRUPAL" = "true" ]; then
@@ -100,6 +113,14 @@ jobs:
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
               cat non_drupal_table.txt >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            # Save non-Drupal vulnerabilities for email
+            if [ "$HAS_NON_DRUPAL" = "true" ]; then
+              NON_DRUPAL_DETAILS=$(cat non_drupal_table.txt)
+              echo "non_drupal_details<<EOF" >> $GITHUB_OUTPUT
+              echo "$NON_DRUPAL_DETAILS" >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
             fi
 
             # Console output
@@ -117,4 +138,41 @@ jobs:
           else
             echo "✅ **No security vulnerabilities found in any packages!**" >> $GITHUB_STEP_SUMMARY
             echo "✅ Drupal security audit passed - no vulnerabilities detected in any packages"
+            echo "drupal_count=0" >> $GITHUB_OUTPUT
+            echo "non_drupal_count=0" >> $GITHUB_OUTPUT
           fi
+
+          
+      - name: Send email notification on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v6
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "🚨 Drupal Security Audit Failed - ${{ github.repository }}"
+          to: ${{ secrets.PALANTIR_NOTIFICATION_EMAIL }}
+          from: "Palantir Security Bot <${{ secrets.EMAIL_USERNAME }}>"
+          body: |
+            🚨 Drupal Security Audit Failed
+            Repository: ${{ github.repository }}
+            Security vulnerabilities detected in Drupal packages!
+            
+            Drupal vulnerabilities: ${{ steps.audit.outputs.drupal_count }}
+            Non-Drupal vulnerabilities: ${{ steps.audit.outputs.non_drupal_count }}
+            
+            ====================================
+            DRUPAL VULNERABILITY DETAILS:
+            ====================================
+            ${{ steps.audit.outputs.drupal_details }}
+            
+            ${{ steps.audit.outputs.non_drupal_count > 0 && '====================================' || '' }}
+            ${{ steps.audit.outputs.non_drupal_count > 0 && 'NON-DRUPAL VULNERABILITY DETAILS:' || '' }}
+            ${{ steps.audit.outputs.non_drupal_count > 0 && '====================================' || '' }}
+            ${{ steps.audit.outputs.non_drupal_details }}
+            
+            ====================================
+            
+            View full results: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
