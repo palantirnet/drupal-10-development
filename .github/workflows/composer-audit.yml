@@ -153,7 +153,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "🚨 Drupal Security Audit Failed - ${{ github.repository }}"
-          to: ${{ secrets.TEAM_EMAIL }}
+          to: ${{ secrets.PALANTIR_NOTIFICATION_EMAIL }}
           from: "Palantir Security Bot <${{ secrets.EMAIL_USERNAME }}>"
           body: |
             🚨 Drupal Security Audit Failed
