@@ -1,4 +1,12 @@
 name: D10 - Security Review
+# Required Secrets (same across projects):
+#   EMAIL_USERNAME: Gmail address for sending notifications (i.e. security-bot@palantir.net)
+#   EMAIL_PASSWORD: Gmail App Password (no spaces)
+#   **Details are stored in the 1password vault named "Production".**
+#
+# Required Variables (unique per project):
+#   PALANTIR_NOTIFICATION_EMAIL: Email address to receive alerts; group email address recommended
+#   CLIENT_WEBSITE_URL: (Optional) Client's website URL
 on:
   schedule:
     - cron: '0 21 * * 3' # Runs every Wednesday at 8:30PM UTC / 5:00 EDT / 4:00 EST.
