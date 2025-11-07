@@ -1,7 +1,8 @@
-name: D10 - Security Review
+name: Drupal - Security Review
 # Required Secrets (same across projects):
 #   EMAIL_USERNAME: Gmail address for sending notifications (i.e. security-bot@palantir.net)
 #   EMAIL_PASSWORD: Gmail App Password (no spaces)
+#   COMPOSER_GITHUB_TOKEN: (Conditional) GitHub Personal Access Token ("PAT") with 'repo' scope - only needed if composer.json has private VCS dependencies. A classic PAT is recommended. More info here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 #   **Details are stored in the 1password vault named "Production".**
 #
 # Required Variables (unique per project):
@@ -19,6 +20,25 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      - name: Check if private composer dependencies exist
+        id: check_private_deps
+        run: |
+          if grep -q '"type"[[:space:]]*:[[:space:]]*"vcs"' composer.json; then
+            echo "has_private_deps=true" >> $GITHUB_OUTPUT
+            echo "⚠️ This project uses private VCS dependencies"
+          else
+            echo "has_private_deps=false" >> $GITHUB_OUTPUT
+            echo "✅ This project uses only public dependencies"
+          fi
+
+      - name: Validate composer authentication
+        if: steps.check_private_deps.outputs.has_private_deps == 'true' && !secrets.COMPOSER_GITHUB_TOKEN
+        run: |
+          echo "::error::This project requires private composer dependencies but COMPOSER_GITHUB_TOKEN secret is not set."
+          echo "::error::Please add COMPOSER_GITHUB_TOKEN secret with a GitHub Personal Access Token that has 'repo' scope."
+          echo "::error::Generate at: https://github.com/settings/tokens"
+          exit 1
+
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@2.35.4
         with:
@@ -27,6 +47,8 @@ jobs:
           tools: composer:v2
 
       - name: "Composer install"
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_GITHUB_TOKEN && format('{{"github-oauth":{{"github.com":"{0}"}}}}', secrets.COMPOSER_GITHUB_TOKEN) || '{}' }}
         uses: "ramsey/composer-install@2.2.0"
         with:
           composer-options: "--prefer-dist"
