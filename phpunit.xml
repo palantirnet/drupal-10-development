@@ -11,7 +11,9 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
+         failOnRisky="true"
          failOnWarning="true"
+         failOnPhpunitWarning="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
@@ -33,7 +35,7 @@
      you can set the base URL used in the browser test output links to something
      reachable from your host machine here. This will allow you to follow them
      directly and view the output. -->
-    <env name="BROWSERTEST_OUTPUT_BASE_URL" value="https://d10.ddev.site"/>
+    <env name="BROWSERTEST_OUTPUT_BASE_URL" value=""/>
     <!-- The environment variable SYMFONY_DEPRECATIONS_HELPER is used to configure
       the behavior of the deprecation tests.
       Drupal core's testing framework is setting this variable to its defaults.
@@ -74,16 +76,25 @@
       -->
       <parameter name="verbose" value="true"/>
     </bootstrap>
+    <!-- Debug dump() printer. -->
+    <bootstrap class="Drupal\TestTools\Extension\Dump\DebugDump">
+      <parameter name="colors" value="true"/>
+      <parameter name="printCaller" value="true"/>
+    </bootstrap>
   </extensions>
   <testsuites>
+    <testsuite name="unit-component">
+      <directory>tests/Drupal/Tests/Component</directory>
+    </testsuite>
     <testsuite name="unit">
       <directory>tests/Drupal/Tests</directory>
+      <exclude>tests/Drupal/Tests/Component</exclude>
       <directory>modules/**/tests/src/Unit</directory>
       <directory>profiles/**/tests/src/Unit</directory>
       <directory>themes/**/tests/src/Unit</directory>
-      <directory>../modules/**/tests/src/Unit</directory>
-      <directory>../profiles/**/tests/src/Unit</directory>
-      <directory>../themes/**/tests/src/Unit</directory>
+      <directory>../modules/*/**/tests/src/Unit</directory>
+      <directory>../profiles/*/**/tests/src/Unit</directory>
+      <directory>../themes/*/**/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
       <directory>tests/Drupal/KernelTests</directory>
@@ -91,9 +102,9 @@
       <directory>recipes/*/tests/src/Kernel</directory>
       <directory>profiles/**/tests/src/Kernel</directory>
       <directory>themes/**/tests/src/Kernel</directory>
-      <directory>../modules/**/tests/src/Kernel</directory>
-      <directory>../profiles/**/tests/src/Kernel</directory>
-      <directory>../themes/**/tests/src/Kernel</directory>
+      <directory>../modules/*/**/tests/src/Kernel</directory>
+      <directory>../profiles/*/**/tests/src/Kernel</directory>
+      <directory>../themes/*/**/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
       <directory>tests/Drupal/FunctionalTests</directory>
@@ -101,9 +112,9 @@
       <directory>profiles/**/tests/src/Functional</directory>
       <directory>recipes/*/tests/src/Functional</directory>
       <directory>themes/**/tests/src/Functional</directory>
-      <directory>../modules/**/tests/src/Functional</directory>
-      <directory>../profiles/**/tests/src/Functional</directory>
-      <directory>../themes/**/tests/src/Functional</directory>
+      <directory>../modules/*/**/tests/src/Functional</directory>
+      <directory>../profiles/*/**/tests/src/Functional</directory>
+      <directory>../themes/*/**/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
       <directory>tests/Drupal/FunctionalJavascriptTests</directory>
@@ -111,12 +122,14 @@
       <directory>recipes/*/tests/src/FunctionalJavascript</directory>
       <directory>profiles/**/tests/src/FunctionalJavascript</directory>
       <directory>themes/**/tests/src/FunctionalJavascript</directory>
-      <directory>../modules/**/tests/src/FunctionalJavascript</directory>
-      <directory>../profiles/**/tests/src/FunctionalJavascript</directory>
-      <directory>../themes/**/tests/src/FunctionalJavascript</directory>
+      <directory>../modules/*/**/tests/src/FunctionalJavascript</directory>
+      <directory>../profiles/*/**/tests/src/FunctionalJavascript</directory>
+      <directory>../themes/*/**/tests/src/FunctionalJavascript</directory>
     </testsuite>
     <testsuite name="build">
       <directory>tests/Drupal/BuildTests</directory>
+      <directory>modules/**/tests/src/Build</directory>
+      <directory>../modules/*/**/tests/src/Build</directory>
     </testsuite>
   </testsuites>
   <!-- Settings for coverage reports. -->
@@ -129,15 +142,13 @@
       <directory>../sites</directory>
     </include>
     <exclude>
+      <directory>./lib/Drupal/Component</directory>
       <directory>./modules/*/src/Tests</directory>
       <directory>./modules/*/tests</directory>
       <directory>../modules/*/src/Tests</directory>
       <directory>../modules/*/tests</directory>
       <directory>../modules/*/*/src/Tests</directory>
       <directory>../modules/*/*/tests</directory>
-      <directory suffix=".api.php">./lib/**</directory>
-      <directory suffix=".api.php">./modules/**</directory>
-      <directory suffix=".api.php">../modules/**</directory>
     </exclude>
   </source>
 </phpunit>
